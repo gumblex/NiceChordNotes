@@ -1,0 +1,297 @@
+\documentclass[UTF8]{ctexart}
+\usepackage[a4paper]{geometry}
+\usepackage{fullpage}
+\usepackage{amssymb}
+\usepackage{titling}
+\usepackage{ruby}
+\setmainfont{Noto Serif}
+\setCJKmainfont{Source Han Serif TW}
+\ctexset{
+  section/format = \large\bfseries
+}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning} 
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+}
+\title{「好和弦」筆記}
+
+\begin{document}
+\maketitle
+
+\section{為什麼流行歌聽起來都這麼像？}
+
+相同的下行低音的和聲進行。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \chordmode {
+      c1 g/b a:m e:m/g f c/e d:m g
+    }
+  }
+  \relative {
+    \clef "bass"
+    \chordmode {c1} <b d g> \chordmode {a,:m} <g b e>
+    \chordmode {f,} <e g c> \chordmode {d,:m g,}
+  }
+>>
+\end{lilypond}
+
+\section{十分鐘以內，一次搞懂所有的現代和弦代號！}
+
+\ruby{和弦}{chord}：三個音或以上的、三度堆疊的組合。
+\ruby{三和弦}{triad}：三個音的和弦。
+\ruby{七和弦}{seventh chord}：四個音的和弦。從最低音算起，三度三度堆疊到第7度音。更多音的和弦命名規則就是幾度音的和弦。
+
+\ruby{大}{major}：1 3 5 7 (9 11 13)
+
+\ruby{小}{minor}：1 $\flat$3 5 $\flat$7 (9 11 13)
+
+\ruby{屬}{dominant}：1 3 5 $\flat$7 (9 11 13)
+
+和弦代號：根音+字尾。變化型：\textbf{add}增加音（2=add2, 6=add6）；\textbf{sus}不要3度音，換成4或2度音（sus=sus4）；\textbf{omit}省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
+
+\ruby{半減}{half-diminished}：$\varnothing$ (m7$\flat$5)；
+\ruby{減}{diminished}：dim7；
+\ruby{小大}{minor-major}：mmaj7；
+（\ruby{增大}{augmented major}：maj7($\sharp$5)；
+\ruby{增屬}{augmented dominant}：aug7）
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c e g b>1-\markup { \super "maj7" }
+  <c d e g>1-\markup { \super "add2" }
+  <c g b d'>1-\markup { \super "maj9(omit 3)" }
+  <c e g bes dis' fis' aes'>1-\markup { \super {"7(" \sharp 9 \sharp 11 \flat "13)"} }
+  <c ees ges beses>1-\markup { \super "dim7" }
+  <c e gis bes>1-\markup { \super "aug7" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \set majorSevenSymbol = \markup { maj }
+    \relative {
+      \chordmode {
+        \set chordNameSeparator = \markup { }
+        \set chordNameExceptions = #chExceptions
+        c1 c:maj7 c:maj9 c:m c:m9 c:7 c:11 c:5.2 c:5.4^3 c:7.4^3 c:maj9^3
+        c:7.9+.11+.13- c'/g c'/f c:m7.5- c:dim7 c:maj7.3- c:maj7.5+ c:aug7
+      }
+    }
+  }
+  \relative{
+    \chordmode {
+      c1 c:maj7 c:maj9 c:m c:m9 c:7 c:11 c:5.2 c:5.4^3 c:7.4^3 c:maj9^3
+      c:7.9+.11+.13- c'/g c'/f c:m7.5- c:dim7 c:maj7.3- c:maj7.5+ c:aug7
+    }
+  }
+>>
+\end{lilypond}
+
+\section{和弦只要加「2」就會比較厲害？}
+
+有模糊的感覺，有點不協和，現代流行音樂常用。加 2 前後功能相同。
+
+\section{和弦有什麼功能？}
+
+\ruby{主}{tonic}：開始、結束、穩定、好了、完成了，“家”（C）
+
+\ruby{屬}{dominant}：一半、不穩定、還沒完、不在家，“外面”（G, G7）
+
+\ruby{下屬}{sub-dominant}：中介、跨出一步、接到屬和弦，“橋”（F）
+
+\begin{tikzpicture}[>=latex',line join=bevel,]
+%%
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
+  \pgfsetfillcolor{fillcol}
+\end{scope}
+  \node (a) at (141.29bp,90.0bp) {主和弦，家};
+  \node (c) at (217.29bp,18.0bp) {下屬和弦，橋};
+  \node (b) at (66.294bp,18.0bp) {屬和弦，外面};
+  \draw [->] (b) ..controls (99.74bp,43.884bp) and (111.87bp,54.994bp)  .. (a);
+  \draw [->] (c) ..controls (195.91bp,45.003bp) and (183.55bp,56.536bp)  .. (a);
+  \draw [->] (a) ..controls (107.99bp,64.244bp) and (95.718bp,53.009bp)  .. (b);
+  \draw [->] (a) ..controls (162.45bp,63.213bp) and (174.83bp,51.644bp)  .. (c);
+  \draw [->] (b) ..controls (135.3bp,18.0bp) and (137.96bp,18.0bp)  .. (c);
+%
+\end{tikzpicture}
+
+\section{和弦還有什麼功能？（續集）}
+
+\begin{tabular}{c | c | c | c}
+\hline
+家 & 橋 & 外面 & 家 \\ \hline
+C & F & G or G7 & C \\
+C $\rightarrow$ Em & Dm & Bdim & Em $\rightarrow$ \\
+C $\rightarrow$ Am & F $\rightarrow$ Dm & & Am $\rightarrow$ \\
+C $\rightarrow$ Em $\rightarrow$ Am & Dm $\rightarrow$ F & & \\
+C $\rightarrow$ Am $\rightarrow$ Em & & & \\ \hline
+\end{tabular}
+
+\bigskip
+
+\begin{lilypond}[staffsize=16]
+chordmusic = \relative {
+  \chordmode {
+    c1 \bar "" d:m \bar "" e:m \bar "" f \bar "" g \bar "" g:7 \bar "" a:m  \bar "" b:dim
+  }
+}
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \chordmusic
+  }
+  {
+    \chordmusic
+  }
+>>
+\end{lilypond}
+
+\begin{tabular}{c c c c c c c c}
+C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
+家 & 橋 & 朋友家 & 橋 & \multicolumn{2}{c}{外面} & 旅館 & 外面 \\
+\end{tabular}
+
+\section{這是什麼鬼音？（Ghost Notes）}
+\section{什麼是「12 小節藍調」？（12-bar blues）}
+\section{八分鐘以內，一次搞懂音程名稱！}
+\section{分解和弦伴奏的始祖，阿貝爾替低音！（Alberti Bass）}
+\section{超級簡單的流行抒情歌伴奏！}
+\section{更有節奏感的流行歌伴奏！}
+\section{Solresol！如何用音符來說話？}
+\section{走路低音！（Walking Bass）}
+\section{什麼是「終止式」？}
+\section{更多終止的方式！（續集）}
+\section{大和弦的四種口味！}
+\section{如何寫出動感的低音線條？}
+\section{很潮的屬 11 和弦！}
+\section{很爵士的屬 13 和弦！}
+\section{第 20 集特別節目！好和弦幕後製作大解密！}
+\section{什麼是大調和小調？}
+\section{小調的三種模式：自然／和聲／旋律小音階！}
+\section{搞懂七種調式，以及永遠把它們的名字記起來！}
+\section{Ionian/Dorian/Aeolian 調式！}
+\section{Phrygian 和 Lydian 調式！}
+\section{Mixolydian 和 Locrian 調式！}
+\section{神秘魔法棒和全音音階！}
+\section{副屬和弦！}
+\section{很酷炫的「三全音代理」和弦！}
+\section{讓你的副屬和弦更漂亮的小技巧！}
+\section{3 種簡單又實用的鋼琴伴奏模式！}
+\section{很簡單的 Dorian 調式即興練習！}
+\section{兩個調式來回切換，聽起來更厲害的即興！}
+\section{用藍調音階來即興！}
+\section{用 Sus2 和 Sus4 和弦，讓和聲進行更有趣！}
+\section{用 Dm/C 和其他和弦來裝飾 C 和弦！}
+\section{拿坡里和弦！}
+\section{用五聲音階來即興！}
+\section{第 40 集特別節目，好和弦的 Ask Me Anything！}
+\section{大和弦裡的第 11 度音？}
+\section{超酷炫的屬和弦變化音！}
+\section{小 11 和弦！}
+\section{更多小 11 和弦的使用方法！（續集）}
+\section{什麼是「借用和弦」？}
+
+\ruby{借用和弦}{Borrowed Chord}（\ruby{調式互換}{Modal Interchange}、\ruby{調式混合}{Mode Mixture}）：拿「同一主音、但不同調式」的和弦來用
+
+\section{一次搞懂「泛音列」！}
+\section{動機發展：寫旋律時，沒有靈感怎麼辦？}
+\section{要怎麼聽起來像是 007？}
+\section{什麼是 Altered Scale？}
+\section{鄰音、經過音和倚音！}
+\section{用高低半音接到目標和弦！}
+\section{用 2-5-1 和弦進行，漂亮地轉調！}
+\section{法國帥哥鋼琴家最愛的伴奏模式！}
+\section{琶音伴奏：音跟音應該離多遠？}
+\section{數字低音！}
+\section{如何幫一個旋律配上和弦？}
+\section{用 C, G7, Dm 和 F 來配和弦！}
+\section{使用大調的 1 到 6 級來配和弦！}
+\section{副屬和弦怎麼用？（Secondary Dominant Chord）}
+\section{升級成 add2 和 m7、以及一個新的思考方法}
+\section{旋律是什麼音的時候可以配 C 和弦？（提示：比你想像中的多）}
+\section{旋律是什麼音的時候可以配上 C7 和弦？（提示：比你想像中還多）}
+\section{考大學音樂系的樂理，到底在考什麼？}
+\section{什麼是「減和弦」？（Diminished Chords）}
+\section{半減七和弦！（The ø Chord）}
+\section{和弦與音階的對應關係？}
+\section{終止六四和弦！（The Cadential 64 Chord）}
+\section{經過六四和弦！（Passing Six four Chord）}
+\section{持續低音六四和弦！（Pedal Six-four Chord）}
+\section{好和弦分析林宥嘉的《兜圈》，以及 4 個讓下行低音更有新鮮感的技巧！}
+\section{用很簡便的思考方式，讓屬和弦聽起來更酷炫}
+\section{「卡農」和聲進行，以及為什麼很多流行歌的旋律都很像}
+\section{什麼是「移調樂器」？}
+\section{皮卡第三度！如何出乎意料地使用大和弦？（Picardy Third）}
+\section{半音階下行的和聲進行！}
+\section{用屬和弦來結尾！}
+\section{十分鐘之內，一次搞懂「單拍子」和「複拍子」！}
+\section{不正常的拍子？}
+\section{強拍、弱拍和「多層級」的拍子}
+\section{切分節奏！（Syncopation）}
+\section{10 小時的好和弦背景音樂！好和弦陪你一整天～（NiceChord BGM 10hr）}
+\section{如何把一個旋律編成鋼琴獨奏曲？}
+\section{如何寫出與眾不同的和聲進行？}
+\section{什麼是「增六和弦」？（Augmented Sixth Chords）}
+\section{為什麼厲害的人彈同一個和弦，就是比你好聽一點點？}
+\section{為什麼你可以聽到旋律？}
+\section{為什麼厲害的人彈同一條旋律，就是比你更有層次感？}
+\section{為什麼厲害的人彈同一串音，聽起來就是比你清楚？}
+\section{好和弦教你如何 Swing！}
+\section{為什麼厲害的人，視譜可以這麼快？}
+\section{好和弦分析五月天《後來的我們》，順便一次搞懂流行歌曲式！ [重新上傳，修正版]}
+\section{如何彈出又帥氣又糾結的屬七和弦？}
+\section{上下「夾擊」目標音，讓你的旋律變得更有趣！}
+\section{如何使用「第一轉位」？（First Inversion）}
+\section{一個步驟，利用高低半音讓你的和弦更有現代感！}
+\section{如何寫作「隆重登場」的配樂？}
+\section{如何練音階？}
+\section{十分鐘之內，學會用電腦製作樂譜！（MuseScore）}
+\section{全新的和弦配置思考法！}
+\section{隨機挑選和弦，亂接也可以！}
+\section{好和弦的第 100 集！}
+\section{100 集紀念，好和弦的 100 個「哈囉」開場白！}
+\section{好和弦教你在任何和弦進行上面寫旋律！}
+\section{用很簡單的音，在複雜的和弦進行上面即興！}
+\section{為什麼超級瑪莉會聽起來像是超級瑪莉？（Super Mario Bros.）}
+\section{音符的「心理分組」？}
+\section{如何自己在家裡訓練音感？}
+\section{11 個給創作者的秘訣：如何不要每次都寫出一模一樣的歌？}
+\section{為什麼鋼琴音不準的時候，聽起來會像是音不準？}
+\section{用簡單的「照樣造句」練習，來更了解作曲家的思考方式！}
+\section{瑪莉歐終止式？ (The Mario Cadence)}
+\section{如何利用微妙的時間差，做出帥帥的節奏？}
+\section{電磁波、七色彩虹和 65 歲的早餐店老闆！}
+\section{為什麼「八度」很重要，以及住在希臘的聰明男人}
+\section{畢達哥拉斯怎麼找到 Do Re Mi？}
+\section{「狼五度」（Wolf Fifth）和不負責任的音樂學家}
+\section{中庸全音律，以及關於 Do-Sol 和 Do-Mi 的故事}
+\section{算盤神，以及不平均的平均律}
+\section{一次搞懂，在家做音樂需要的基本配備！}
+\section{超簡單又實用，只用三個音的和弦配置！}
+\section{如何把一個主旋律，編成任何你想要的樂器編制？}
+\section{好和弦的第 120 集！}
+\section{如何連續堆疊副屬和弦，以及好和弦家庭號大包裝 6 登場！}
+\section{如何連續堆疊教會終止？}
+\section{負面和聲？（Negative Harmony）}
+\section{如何寫「中國風」的音樂？}
+\section{如何買你的第一支麥克風？}
+\section{如何控制音樂的「緊湊度」？}
+\section{一起來玩「持續低音」！}
+\section{繼續來玩「持續音」！（續集）}
+\section{一起來玩「恆定結構」！（Constant Structure）}
+
+\end{document}
