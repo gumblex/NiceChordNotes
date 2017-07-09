@@ -10,12 +10,13 @@
   section/format = \large\bfseries
 }
 \usepackage{tikz}
-\usetikzlibrary{arrows,positioning} 
+\usetikzlibrary{arrows,positioning}
 \tikzset{
     %Define standard arrow tip
     >=stealth',
 }
 \title{「好和弦」筆記}
+\date{}
 
 \begin{document}
 \maketitle
@@ -166,6 +167,11 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 \end{tabular}
 
 \section{這是什麼鬼音？（Ghost Notes）}
+
+\ruby{鬼音}{Ghost Notes}（幽靈音、悶音）：非常小聲，沒有則會大大喪失節奏感。
+
+簡單的爵士鼓節奏中加入很輕的小鼓聲音可以使其變得更複雜。
+
 \section{什麼是「12 小節藍調」？（12-bar blues）}
 \section{八分鐘以內，一次搞懂音程名稱！}
 \section{分解和弦伴奏的始祖，阿貝爾替低音！（Alberti Bass）}
@@ -203,9 +209,12 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 \section{超酷炫的屬和弦變化音！}
 \section{小 11 和弦！}
 \section{更多小 11 和弦的使用方法！（續集）}
+
+...
+
 \section{什麼是「借用和弦」？}
 
-\ruby{借用和弦}{Borrowed Chord}（\ruby{調式互換}{Modal Interchange}、\ruby{調式混合}{Mode Mixture}）：拿「同一主音、但不同調式」的和弦來用
+\ruby{借用和弦}{Borrowed Chord}（\ruby{調式互換}{Modal Interchange}、\ruby{調式混合}{Mode Mixture}）：拿「同一主音、但不同調式」的和弦來用。
 
 \section{一次搞懂「泛音列」！}
 \section{動機發展：寫旋律時，沒有靈感怎麼辦？}
@@ -233,7 +242,121 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 \section{持續低音六四和弦！（Pedal Six-four Chord）}
 \section{好和弦分析林宥嘉的《兜圈》，以及 4 個讓下行低音更有新鮮感的技巧！}
 \section{用很簡便的思考方式，讓屬和弦聽起來更酷炫}
+
+...
+
 \section{「卡農」和聲進行，以及為什麼很多流行歌的旋律都很像}
+
+卡農是一種作曲技巧，只是 \textit{Pachelbel's Canon} 這首最有名。
+
+卡農的和弦進行：
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \chordmode {
+      d1 a b:m fis:m g d g a
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        \chordmode {d1} <cis e a> \chordmode {b,:m}
+        <a cis fis> <b d g> \chordmode{d/a} <b d g> \chordmode{a,}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        d1 a b fis g d g a
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+華語流行歌的和弦進行：
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \chordmode {
+      d1 a/cis b:m fis:m/a g d/fis e:m a
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        \chordmode {d1} <cis e a> \chordmode {b,:m}
+        <a cis fis> <b d g> \chordmode{d/a} <b e g> \chordmode{a,}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        d1 cis b a g fis e a
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+若把 Pachelbel 卡農高音旋律和現代下行低音旋律放一起：
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #1
+    \chordmode {
+      c1 g/b a:m e:m/g f c/e d:m g
+    }
+  }
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \numericTimeSignature
+      e d c b a g a b
+      \bar "|."
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \numericTimeSignature
+        \chordmode {c} <b d g> \chordmode {a,:m}
+        <g b e> <a c f> <g c e> <a d f> \chordmode{g,}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \numericTimeSignature
+        c1 b a g f e d g
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+這邊高音和低音的旋律走向都是協和的平行十度。
+
+流行歌的旋律很像，除了使用同樣的下行低音和弦進行之外，還因為有意無意就寫成了有十度關係的旋律。
+
 \section{什麼是「移調樂器」？}
 \section{皮卡第三度！如何出乎意料地使用大和弦？（Picardy Third）}
 \section{半音階下行的和聲進行！}
@@ -289,9 +412,42 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 \section{負面和聲？（Negative Harmony）}
 \section{如何寫「中國風」的音樂？}
 \section{如何買你的第一支麥克風？}
+
+...
+
 \section{如何控制音樂的「緊湊度」？}
+
+例如：
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative {
+  \clef "bass"
+  \numericTimeSignature
+  \time 4/4
+  f8 a c f a f c a
+  \bar "||"
+  f a c a f a c a
+  \bar "||"
+  f c' a c f, c' a c
+  \bar "||"
+  f, c' f, c' f, c' f, c'
+  \bar "||"
+}
+\end{lilypond}
+
+一段音樂多緊湊是根據聽者覺得發生了幾件事情而定。這種分解琶音伴奏跟最低音出現的次數有很大關聯。可以配合旋律用不同的琶音形式、小鼓聲和拍手聲等控制音樂的緊湊程度。
+
 \section{一起來玩「持續低音」！}
 \section{繼續來玩「持續音」！（續集）}
 \section{一起來玩「恆定結構」！（Constant Structure）}
+\section{要怎麼知道一首曲子應該彈多快？}
+
+\begin{itemize}
+\item 問作曲家本人
+\item 聽他的錄音
+\item 看他的寫的速度標記
+\end{itemize}
+
+主要是看譜子上面寫的速度形容詞，跟節拍器上寫的不是一一對應的，還是跟個人理解有關。
 
 \end{document}
