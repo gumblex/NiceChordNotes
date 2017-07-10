@@ -4,7 +4,7 @@
 \usepackage{amssymb}
 \usepackage{titling}
 \usepackage{ruby}
-\setmainfont{Noto Serif}
+\setmainfont{TeX Gyre Schola}
 \setCJKmainfont{Source Han Serif TW}
 \ctexset{
   section/format = \large\bfseries
@@ -29,7 +29,7 @@
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \chordmode {
       c1 g/b a:m e:m/g f c/e d:m g
     }
@@ -54,7 +54,7 @@
 
 \ruby{屬}{dominant}：1 3 5 $\flat$7 (9 11 13)
 
-和弦代號：根音+字尾。變化型：\textbf{add}增加音（2=add2, 6=add6）；\textbf{sus}不要3度音，換成4或2度音（sus=sus4）；\textbf{omit}省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
+和弦代號：根音+字尾。變化型：add 增加音（2=add2, 6=add6）；sus 不要3度音，換成4或2度音（sus=sus4）；omit S省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
 
 \ruby{半減}{half-diminished}：$\varnothing$ (m7$\flat$5)；
 \ruby{減}{diminished}：dim7；
@@ -77,7 +77,7 @@ chExceptions = #( append
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \set majorSevenSymbol = \markup { maj }
     \relative {
       \chordmode {
@@ -152,7 +152,7 @@ chordmusic = \relative {
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \chordmusic
   }
   {
@@ -173,10 +173,177 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 簡單的爵士鼓節奏中加入很輕的小鼓聲音可以使其變得更複雜。
 
 \section{什麼是「12 小節藍調」？（12-bar blues）}
+
+12小節藍調是一種12個小節的和弦進行，常出現在爵士音樂和早期的搖滾音樂。
+
+C7 C7 C7 C7 F7 F7 C7 C7 G7 F7 C7 C7
+
+上述和弦可調整成：
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c e bes d'>1-\markup { "9(omit5)" }
+  <f a ees' g' d''>1-\markup { "13(omit5)" }
+  <g b fes' a' e''>1-\markup { "13(omit5)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      \set chordNameExceptions = #chExceptions
+      c1:9^5 f:13^5 g:13^5
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <e, bes' d> <ees a d> <f b e>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c1 f g
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
 \section{八分鐘以內，一次搞懂音程名稱！}
+
+音程名稱是音樂中的距離單位。一個音唸到另一個音的名字，唸過幾個字就是幾「度」。
+
+在大調音階裡，每一個音與第一個音的距離，都叫做「完全」或「大」音程。
+
+\bigskip
+
+\begin{tabular}{rcl}
+& \Large{1458} & \\
+減 $\leftarrow$ & 完全 & $\rightarrow$ 增 \\
+減 $\leftarrow$ 小 $\leftarrow$ & 大 & $\rightarrow$ 增 \\
+& \Large{2367} & \\
+\end{tabular}
+
 \section{分解和弦伴奏的始祖，阿貝爾替低音！（Alberti Bass）}
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  c8 g' e g c, g' e g \bar "|."
+}
+\end{lilypond}
+
+\begin{itemize}
+\item 要注意音的高低，不能放很低
+\item 七和弦：去掉五度音，或去掉右手旋律音
+\end{itemize}
+
 \section{超級簡單的流行抒情歌伴奏！}
+
+1+3配置
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1 \skip1 \skip1 \skip1 \skip1 \skip1}
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \cadenzaOn
+        \override Staff.TimeSignature #'stencil = ##f
+        \skip1 \skip1 <c e g>1 <g c e> <e g c> <e' g c>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \cadenzaOn
+        \override Staff.TimeSignature #'stencil = ##f
+        c1 c' \skip1 \skip1 \skip1 \skip1
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+例如：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1 e:m a:m f}
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        \repeat unfold 4 {<g c e>4}
+        \repeat unfold 4 {<g b e>4}
+        \repeat unfold 4 {<a c e>4}
+        \repeat unfold 4 {<a c f>4}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c'1 e, a f
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
 \section{更有節奏感的流行歌伴奏！}
+
+加 Ghost notes，也可以加入更多和弦音在每小節的第四拍。例如：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1 g:m/bes}
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e>4 <g c e>8 g8 <g c e>8. g16 <g c e>16 g16 c8
+        <g d' g>4 <g d' g>8. g16 <g d' g>4 <g d' g>8 g8
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c'1 bes
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+
 \section{Solresol！如何用音符來說話？}
 \section{走路低音！（Walking Bass）}
 \section{什麼是「終止式」？}
@@ -255,7 +422,7 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \chordmode {
       d1 a b:m fis:m g d g a
     }
@@ -287,7 +454,7 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \chordmode {
       d1 a/cis b:m fis:m/a g d/fis e:m a
     }
@@ -319,7 +486,7 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
-    \override ChordNames.ChordName.font-size = #1
+    \override ChordNames.ChordName.font-size = #0.85
     \chordmode {
       c1 g/b a:m e:m/g f c/e d:m g
     }
