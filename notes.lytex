@@ -3,6 +3,7 @@
 \usepackage{fullpage}
 \usepackage{amssymb}
 \usepackage{titling}
+\usepackage{xfrac}
 \usepackage{ruby}
 \setmainfont{TeX Gyre Schola}
 \setCJKmainfont{Source Han Serif TW}
@@ -54,7 +55,7 @@
 
 \ruby{屬}{dominant}：1 3 5 $\flat$7 (9 11 13)
 
-和弦代號：根音+字尾。變化型：add 增加音（2=add2, 6=add6）；sus 不要3度音，換成4或2度音（sus=sus4）；omit S省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
+和弦代號：根音+字尾。變化型：add 增加音（2=add2, 6=add6）；sus 不要3度音，換成4或2度音（sus=sus4）；omit 省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
 
 \ruby{半減}{half-diminished}：$\varnothing$ (m7$\flat$5)；
 \ruby{減}{diminished}：dim7；
@@ -343,18 +344,236 @@ chExceptions = #( append
 >>
 \end{lilypond}
 
-
 \section{Solresol！如何用音符來說話？}
+
+François Sudre 發明了一套叫 Solresol 的人工語言，只使用了七個音節。SVO 結構，單字中間用停頓區別。
+
 \section{走路低音！（Walking Bass）}
+
+Walking Bass 是爵士樂中常見的低音形態，指每個音都一樣長的低音線條。
+
+寫作技巧有：
+
+\begin{enumerate}
+\item 分解和弦
+\item 更換順序
+\item 經過音
+\item 高半音、低半音
+\item 八分音符和三連音
+\end{enumerate}
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c1 f g c
+    }
+  }
+  \relative c {
+    \clef "bass"
+    \override Staff.TimeSignature #'stencil = ##f
+    c,4 g' \tuplet 3/2 { c8 g c, } ges'4
+    f4 c'8 f, f'4 fis
+    g8 g, d'4 b g
+    c1 \bar "|."
+  }
+>>
+\end{lilypond}
+
 \section{什麼是「終止式」？}
+
+終止式：用來結束一句、一段或一首音樂最後幾個和弦的安排方式。
+
+正格終止：五級和弦\textrm{V}接到一級和弦\textrm{I}。有結束的感覺。
+
+半終止：最後停在五級和弦\textrm{V}。有還沒結束的感覺。
+
 \section{更多終止的方式！（續集）}
+
+假終止：五級和弦接到不是一級和弦（通常是六級）的終止。有不同效果。
+
+變格終止：四級和弦接到一級和弦的終止。有教會的感覺。
+
 \section{大和弦的四種口味！}
+
+大七和弦有種現代的感覺，大九和弦更有現代感一點。大三和弦就比較堅定、單純。大三和弦加上大六度（C\super{6}）有種老派或者中國的感覺。大六度和大九度同時出現（C\sfrac{6}{9}）有種拉丁風的感覺。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {c1:maj7 c:maj9 c:6 c:6.9}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1:maj7 c:maj9 c:6 c:6.9}
+  }
+>>
+\end{lilypond}
+
 \section{如何寫出動感的低音線條？}
+
+\begin{itemize}
+\item 寫和弦的根音拉長
+\item 單音，變換節奏
+\item 高八度、低八度音
+\item 加入五度音
+\item 加入七度音
+\item 加入其他和弦音、經過音、隨便的音
+\end{itemize}
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {d1:m7 g:7 d:m7 g:7}
+  }
+  \relative c {
+    \clef "bass"
+    \override Staff.TimeSignature #'stencil = ##f
+    d8 d f16 fis r g r g gis r a8 c
+    g,8 g b16 c r d r f fis r g8 g,
+    d'8 d f16 fis r g r a c d e8 d16 c
+    g8 g f16 r e d r b g r c8 cis
+    \bar "|."
+  }
+>>
+\end{lilypond}
+
 \section{很潮的屬 11 和弦！}
+
+用 F/G 代替 G\super{7} 和弦，用 C\super{(add2)} 代替 C 和弦，就聽起來很流行。
+
+G\super{11(omit3, omit5)} = F/G, G\super{11(omit3)} = Dm\super{7}/G = G\super{9sus}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c d e g>1-\markup { \super "(add2)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {g1:7 c f/g c:2.3.5 d:m7/g c:maj9}
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g b f'>1 <g c e>
+        \bar "||"
+        <a c f>1 <g c d e>
+        \bar "||"
+        <a c d f>1 <g b d e>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        g1 c, g'1 c, g'1 c,
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+古典 $\rightarrow$ 流行 $\rightarrow$ 更流行
+
 \section{很爵士的屬 13 和弦！}
+
+\begin{enumerate}
+\item 1-3-7-13
+\item 1-3-7-9-13
+\item 1-7-9-11-13: G13(omit3, omit5) = G13sus
+\end{enumerate}
+
 \section{第 20 集特別節目！好和弦幕後製作大解密！}
+
+\begin{enumerate}
+\item 決定每週的主題，上 Wikipedia 研究，看其他網站。
+\item 在 Evernote 裡寫大綱，簡短的英文速記
+\item 打逐字稿
+\item 用 Sibelius 做樂譜，輸出成 TIF 圖片檔
+\item 用 Keynote 做簡報，輸出成 1080p 影片
+\item 用 Logic Pro 錄音，剪掉錯字和空白，加入背景音樂，用 Midi 鍵盤錄示範片段，調整背景音樂音量變化，再輸出成 AIFF 檔案
+\item 用 Final Cut Pro 剪接影片
+\item 上傳到 YouTube，抓一張縮圖，同時上傳到優酷
+\item 在用 WordPress 架的官網上張貼文章
+\item 用 Benchmark Email 發郵件
+\item 到 Facebook 粉絲頁發佈
+\end{enumerate}
+
 \section{什麼是大調和小調？}
+
+調式：在一個音階中，音與音之間的排列模式，具體是每個音之間間隔的全音、半音的不同。
+
+\begin{tabular}{c c}
+\raisebox{\totalheight}{\ruby{大調}{Major Mode}} &
+\begin{lilypond}[fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d e f g a b c
+  \bar "|."
+}
+\end{lilypond}
+\\
+\raisebox{\totalheight}{\ruby{小調}{Minor Mode}} &
+\begin{lilypond}[fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d ees f g aes bes c
+  \bar "|."
+}
+\end{lilypond}
+\end{tabular}
+
 \section{小調的三種模式：自然／和聲／旋律小音階！}
+
+五級和弦比較喜歡接到一級和弦，而小調中 Gm7 不夠有解決的慾望。
+
+\begin{tabular}{c c}
+\raisebox{\totalheight}{\ruby{和聲小音階}{Harmonic Minor Scale}} &
+\begin{lilypond}[fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d ees f g aes b! c
+  \bar "|."
+}
+\end{lilypond}
+\end{tabular}
+
+然而第六個音和第七個音離太遠了，增二度，就有種邪門的感覺。
+
+\ruby{旋律小音階/曲調小音階}{Melodic Minor Scale}：在小調旋律中，如果有第六音要接到已經升高的第七音，那麼第六個音也要跟著一起升高半音。
+
+\begin{lilypond}[fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d ees f g a! b! c bes aes g f ees! d c
+  \bar "|."
+}
+\end{lilypond}
+
+原本的小音階叫：\ruby{自然小音階}{Natural Minor Scale}。
+
 \section{搞懂七種調式，以及永遠把它們的名字記起來！}
 \section{Ionian/Dorian/Aeolian 調式！}
 \section{Phrygian 和 Lydian 調式！}
