@@ -3,6 +3,7 @@
 \usepackage{fullpage}
 \usepackage{amssymb}
 \usepackage{titling}
+\usepackage{caption}
 \usepackage{xfrac}
 \usepackage{ruby}
 \setmainfont{TeX Gyre Schola}
@@ -109,6 +110,8 @@ chExceptions = #( append
 \ruby{屬}{dominant}：一半、不穩定、還沒完、不在家，“外面”（G, G7）
 
 \ruby{下屬}{sub-dominant}：中介、跨出一步、接到屬和弦，“橋”（F）
+
+\medskip
 
 \begin{tikzpicture}[>=latex',line join=bevel,]
 %%
@@ -575,13 +578,209 @@ chExceptions = #( append
 原本的小音階叫：\ruby{自然小音階}{Natural Minor Scale}。
 
 \section{搞懂七種調式，以及永遠把它們的名字記起來！}
+
+
+\begin{tabular}{ccccccc}
+Ionian & Dorian & Phrygian & Lydian & Mixolydian & Aeolian & Locrian \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+\end{tabular}
+
+\medskip
+
+口訣：我的霹靂貓阿洛
+
 \section{Ionian/Dorian/Aeolian 調式！}
+
+Ionian (1)：大調，開心，大三和弦
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d e f g a b c-\markup { \right-align{C Ionian} }
+  \bar "|."
+}
+\end{lilypond}
+
+Aeolian (6)：小調，悲傷，小三和弦；小三降六和弦更悽慘、恐怖、懸疑
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d ees f g aes bes c-\markup { \right-align{C Aeolian} }
+  \bar "|."
+}
+\end{lilypond}
+
+Dorian (2)：第六個音是大六度，有古老、神話的感覺，而不是很悲傷
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d ees f g a bes c-\markup { \right-align{C Dorian} }
+  \bar "|."
+}
+\end{lilypond}
+
 \section{Phrygian 和 Lydian 調式！}
+
+Phrygian (3)：第二個音和第一個音差半音，有西班牙的感覺
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 des ees f g aes bes c-\markup { \right-align{C Phrygian} }
+  \bar "|."
+}
+\end{lilypond}
+
+更常使用 Phrygian Dominant，第一個音和第二個音開始的三和弦都是大三和弦。即興時和弦用 C 和 D$\flat$ 切換。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 des e f g aes bes c_\markup { \right-align{C Phrygian Dominant} }
+  \bar "|."
+}
+\end{lilypond}
+
+Lydian (4)：C\super{maj13($\sharp$11)} 和弦，有爵士樂感，有夢幻、科技感；另一種和聲進行是切換它的一級二級和弦，有英雄感；或者用F$\sharp$和G不協和製造滑稽感（C\super{($\sharp$4)}）。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d e fis g a b c-\markup { \right-align{C Lydian} }
+  \bar "|."
+}
+\end{lilypond}
+
 \section{Mixolydian 和 Locrian 調式！}
+
+Mixolydian (5)：Boogie-woogie、藍調和爵士音樂。一三五七音是屬七和弦，是在屬七和弦上寫旋律常用的調式，不需要接到F。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d e f g a bes c-\markup { \right-align{C Mixolydian} }
+  \bar "|."
+}
+\end{lilypond}
+
+Locrian (7)：第五個音減五度，主和弦 Cdim，比較黑暗。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 des ees f ges aes bes c-\markup { \right-align{C Locrian} }
+  \bar "|."
+}
+\end{lilypond}
+
 \section{神秘魔法棒和全音音階！}
+
+全音音階：每一個音跟下一個音，距離都是全音的音階。如用在魔法、進入夢境等。
+
+C Whole tone Scale
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 d e fis gis ais c
+  \bar "|."
+}
+\end{lilypond}
+
+其中的增三和弦（C\super{($\sharp$5)} = Caug = C+）跟全音音階有類似效果。
+
 \section{副屬和弦！}
+
+\begin{tabular}{ccccc}
+（家） & & （假裝的家的外面） & & （假裝的家） \\
+\large{C} & $\rightarrow$ & \large{B7} & $\rightarrow$ & \large{Em} \\
+\end{tabular}
+
+\bigskip
+
+\ruby{副屬和弦/次屬和弦}{secondary dominant chord}：要接的那個和弦算起，上面五度音的屬七和弦，可以放在那個和弦前面裝飾。
+
 \section{很酷炫的「三全音代理」和弦！}
+
+\ruby{三全音代理}{tritone substitution}：屬七和弦裡面的三全音讓它想要接到某個目標和弦。可以用另一個有同一個三全音的屬七和弦代替原來的屬七和弦接到同一個目標和弦。例如：G\super{7} $\rightarrow$ D$\flat$\super{7}, E\super{7} $\rightarrow$ B$\flat$\super{7}。
+
+可以在要接的和弦前面插入比那個和弦高半音的屬七和弦，有滿大機會聽起來很酷炫。例如：C $\rightarrow$ F$\sharp$\super{7} $\rightarrow$ F\super{maj7}, C $\rightarrow$ B$\flat$\super{7} $\rightarrow$ Am\super{7}。也可以加入屬九、屬十一、屬十三等和弦。
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c d e g>1-\markup { \super "(add2)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {
+      c2.:2.3.5 bes4:7.11+ a2.:m7 ees4:9^5
+      d2.:m7 aes4:13.11+ f2:maj7/g des2:9.11+ c:6.9
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g d' e>4 <g d' e>4 <g d' e>4 <aes d e>4
+        <g c e>4 <g c e>4 <g c e>4 <g des' f g>4
+        <a c f>4 <a c f>4 <a c f>4 <ges bes d f>4
+        <f a c e>4 <f a c e>4 <f ces' ees g>4 <f ces' ees g>4
+        <a d g>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c2. bes4 a2. ees4
+        d2. aes'4 g2 des2 <c e'>1
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
 \section{讓你的副屬和弦更漂亮的小技巧！}
+
+在五級和弦之前加入裝飾性的二級和弦（「橋」和弦）。
+
+\bigskip
+
+\begin{tabular}{ccccccc}
+ & & （暫時性二級） & & （暫時性五級） & & （暫時性一級） \\
+\large{C} & $\rightarrow$ & \large{Gm\super{7}} & $\rightarrow$ &
+\large{C\super{7}} & $\rightarrow$ & \large{F\super{maj7}} \\
+\large{C\super{2}} & $\rightarrow$ & \large{Am\super{7}} & $\rightarrow$ &
+\large{D\super{7}} & $\rightarrow$ & \large{G\super{2}} \\
+\large{C} & $\rightarrow$ & \large{B\super{$\varnothing$7}} & $\rightarrow$ &
+\large{E\super{7}} & $\rightarrow$ & \large{Am} \\
+\end{tabular}
+
+\medskip
+
+目標和弦是小和弦時，前面插入的裝飾性二級和弦要換成一個半減七和弦。
+
 \section{3 種簡單又實用的鋼琴伴奏模式！}
 \section{很簡單的 Dorian 調式即興練習！}
 \section{兩個調式來回切換，聽起來更厲害的即興！}
@@ -595,9 +794,6 @@ chExceptions = #( append
 \section{超酷炫的屬和弦變化音！}
 \section{小 11 和弦！}
 \section{更多小 11 和弦的使用方法！（續集）}
-
-...
-
 \section{什麼是「借用和弦」？}
 
 \ruby{借用和弦}{Borrowed Chord}（\ruby{調式互換}{Modal Interchange}、\ruby{調式混合}{Mode Mixture}）：拿「同一主音、但不同調式」的和弦來用。
