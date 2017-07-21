@@ -4,6 +4,11 @@
 \usepackage{amssymb}
 \usepackage{titling}
 \usepackage{caption}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{lilyglyphs}
+\usepackage{array}
+\usepackage{multirow}
 \usepackage{xfrac}
 \usepackage{ruby}
 \setmainfont{TeX Gyre Schola}
@@ -21,6 +26,7 @@
 \date{}
 
 \begin{document}
+\urlstyle{same}
 \maketitle
 
 \section{為什麼流行歌聽起來都這麼像？}
@@ -524,8 +530,8 @@ chExceptions = #( append
 
 調式：在一個音階中，音與音之間的排列模式，具體是每個音之間間隔的全音、半音的不同。
 
-\begin{tabular}{c c}
-\raisebox{\totalheight}{\ruby{大調}{Major Mode}} &
+\begin{tabular}{m{2cm} m{10cm}}
+\ruby{大調}{Major Mode} &
 \begin{lilypond}[fragment,staffsize=16]
 \relative c' {
   \cadenzaOn
@@ -535,7 +541,7 @@ chExceptions = #( append
 }
 \end{lilypond}
 \\
-\raisebox{\totalheight}{\ruby{小調}{Minor Mode}} &
+\ruby{小調}{Minor Mode} &
 \begin{lilypond}[fragment,staffsize=16]
 \relative c' {
   \cadenzaOn
@@ -550,8 +556,8 @@ chExceptions = #( append
 
 五級和弦比較喜歡接到一級和弦，而小調中 Gm7 不夠有解決的慾望。
 
-\begin{tabular}{c c}
-\raisebox{\totalheight}{\ruby{和聲小音階}{Harmonic Minor Scale}} &
+\begin{tabular}{m{2cm} m{10cm}}
+\ruby{和聲小音階}{Harmonic Minor Scale} &
 \begin{lilypond}[fragment,staffsize=16]
 \relative c' {
   \cadenzaOn
@@ -704,7 +710,7 @@ C Whole tone Scale
 
 \begin{tabular}{ccccc}
 （家） & & （假裝的家的外面） & & （假裝的家） \\
-\large{C} & $\rightarrow$ & \large{B7} & $\rightarrow$ & \large{Em} \\
+\large{C} & $\rightarrow$ & \large{B\super{7}} & $\rightarrow$ & \large{Em} \\
 \end{tabular}
 
 \bigskip
@@ -782,23 +788,554 @@ chExceptions = #( append
 目標和弦是小和弦時，前面插入的裝飾性二級和弦要換成一個半減七和弦。
 
 \section{3 種簡單又實用的鋼琴伴奏模式！}
+
+「澎恰」模式：每小節第一拍或換和弦處彈「澎」，其他拍子彈「恰」。可以將「恰」彈得短短的，製造歡樂的感覺。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      c1 g2:m7 c2:7 f1:maj7 d2:m7 g2:11 c1
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 \repeat unfold 3 {<g c e>\staccato}
+        r4 <bes d f>\staccato
+        r4 <bes c e>\staccato
+        r4 \repeat unfold 3 {<a c e>\staccato}
+        r4 <a c f>\staccato
+        r4 <a c f>\staccato
+        <g c e>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c4 r4 r2 g4 r c r
+        f,4 r r2 d4 r g r c,1
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+右手每個八分音符都彈一下。可以通過加強第1、4、7個八分音符變得更搖滾，換和弦也在強音的拍點上。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      c1 g4.:m7 c8:7 \skip2 f1:maj7 d4.:m7 g8:11~ \skip2 c1
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        \repeat unfold 2 {<g c e>8-> <g c e> <g c e>}
+        <g c e>-> <g c e>
+        <bes d f>-> <bes d f> <bes d f>
+        <bes c e>-> <bes c e> <bes c e> <bes c e>-> <bes c e>
+        \repeat unfold 2 {<a c e>-> <a c e> <a c e>}
+        <a c e>-> <a c e>
+        \repeat unfold 2 {<a c f>-> <a c f> <a c f>}
+        <a c f>-> <a c f>
+        <g c e>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c c'>8 r r c' r r c r
+        <g, g'> r r <c c'> r r c' r
+        <f,, f'> r r f' r r f r
+        <d, d'> r r <g g'> r r g' r c,1
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+前三個半拍分解單音，第二拍後半拍彈和弦並拉長，三四拍可以加入其他音。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      c1 g4.:m7 c8:7 \skip2 f1:maj7 d4.:m7 g8:11 \skip2 c1
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        r8 g8 c <g c e>~ <g c e> g <g c e> g
+        r8 bes f' <bes, c e>~ <bes c e>4 <bes c e>4
+        r8 a c <a c e>~ <a c e> a <c e>4
+        r8 a c <a c f>~ <a c f> a <a c f> a
+        <g c e>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c1 g4. c8~ c8 c4 c8
+        f,4. f8~ f4. f'8 d4. g,8~ g2 c1
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{很簡單的 Dorian 調式即興練習！}
+
+每天可以堅持練習各種調式五到十分鐘，提高即興能力。
+
+在創作或即興時確保每個和聲和旋律都在同一調式上，就不會太難聽。Dorian 最好挑選特色的大六度音。例如左手可以挑四五個音安排成一個固定的節奏。
+
+系統化的「亂彈」：
+
+\begin{itemize}
+\item 從每個音一拍的音階開始
+\item 加入八分音符
+\item 還是音階，隨時轉向
+\item 不照順序隨意亂跳
+\item 加入重複音
+\item 加入雙音
+\item 加入三連音和十六分音符
+\item 套用任何想到的旋律
+\end{itemize}
+
 \section{兩個調式來回切換，聽起來更厲害的即興！}
+
+例如 C Dorian 和 B$\flat$ Dorian 各兩小節，來回切換。
+
+也可以找 partner 來一起即興。
+
 \section{用藍調音階來即興！}
+
+C Blues Scale
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \cadenzaOn
+  \override Staff.TimeSignature #'stencil = ##f
+  c1 ees f aes a bes c
+  \bar "|."
+}
+\end{lilypond}
+
+12小節藍調，左手簡單的省略五度音配置，右手用各種能想得到的規則，用藍調音階即興。
+
+\begin{itemize}
+\item 藍調音階上下行，每個音一拍
+\item 加入八分音符，Swing
+\item 隨時轉向、不照順序隨意亂跳
+\item 加入三連音和十六分音符
+\end{itemize}
+
 \section{用 Sus2 和 Sus4 和弦，讓和聲進行更有趣！}
+
+同一個和弦要拉長，可以用 sus2 和 sus4 裝飾原本的和弦。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      c2 c4:sus4 c4:sus2 a2:m a4:sus4 a4:sus2
+      f2 f4:sus4 f d:sus4 d:m g:sus4 g c1
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e>4 <g c e> <g c f> <g c d>
+        <a c e> <a c e> <a d e> <a b e>
+        <a c f> <a c f> <bes c f> <a c f>
+        <a d g> <a d f> <g c d> <g b d>
+        <g c e>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c1 a f d'2 g,2 c1
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{用 Dm/C 和其他和弦來裝飾 C 和弦！}
+
+同一個和弦要拉長，還可以保留原和弦低音，臨時換到這個調的其他和弦。
+
+例如：Em/C = C\super{maj7}, G/C = C\super{maj9(omit3)}, Am/C = C\super{add6(omit5)}。Bdim/C 還是不要用好了。
+
+\begin{lilypond}[quote,staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \set majorSevenSymbol = \markup { maj }
+  \chordmode {
+    c2 \skip8 g8/c \skip16 f8./c |
+    c2 \skip8 f8/c \skip16 c8. |
+    bes4. ees4/bes \skip8. bes8. |
+    f4. bes4/f f4. | \break
+    c2 \skip8 g8/c \skip16 f8./c |
+    c4. f4./c \skip16 c8. |
+    bes4. ees8/bes bes4 f8/bes bes8 |
+    f4. bes8/f \skip16 f8. c8/f f8 |
+    c1 \bar "|."
+  }
+}
+\end{lilypond}
+
 \section{拿坡里和弦！}
+
+\ruby{拿坡里和弦}{Neapolitan Chord}：$^{\flat}$II 級的大三和弦。例如 C 大調是 D$\flat$ 和弦，C$\sharp$ 小調是 D 和弦。
+
+可以當作下屬和弦來用，即可以替換二級和四級和弦。最常用的是第一轉位。它原本是不應該出現的和弦，會造成一種奇妙的感覺。例如 C, F, G\super{7(omit 5)}, C 可以換成 C, D$\flat$(/F), G\super{7(omit 5)}, C。
+
+\section{什麼是「五聲音階」？}
+
+\ruby{五聲音階}{Pentatonic Scale}：五個音的音階。一般指\ruby{大調五聲音階}{Major Pentatonic Scale}。
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c' {
+    \clef "treble"
+    \cadenzaOn
+    \set Staff.instrumentName = #"C Major Pentatonic Scale"
+    \override Staff.TimeSignature #'stencil = ##f
+    c1 d e g a c
+    \bar "|."
+  }
+}
+\end{lilypond}
+
+「中國」五聲音階，有音名：宮商角徵羽。
+
 \section{用五聲音階來即興！}
+
+C 的大調五聲音階在 C, Dm, Em, F, G, Am 上面聽起來都不錯，除了不要在Em（Em\super{($\flat$6)} 有點悲傷）和G\super{7}（小心使用G\super{(add4)}）上彈太久C。
+
 \section{第 40 集特別節目，好和弦的 Ask Me Anything！}
+
+\paragraph{從來沒念過音樂班，熱愛音樂的人，如何成為音樂家呢？音樂家的定義是？\textnormal{（蔡伊倫）}} ~\\
+音樂家就是會作曲、會演奏樂器、會指揮或會表演的人，音樂上的能力受大家認可。不一定需要音樂方面的學歷，只要下定決心願意花時間花精神讓自己變強，努力將自己的成果向大家分享，就可以變成所謂的音樂家。
+
+\paragraph{您的內容非常棒又實用，但不懂五線譜的人應該是有困難，是不是可以再進化，讓不會看譜的人也能學呢？\textnormal{（蔡耀慶）}}
+
+好和弦面向的觀眾不是完全的音樂初學者，而是那些學過樂器，卻因樂理知識不足，不知道自己在彈什麼、不能自己作曲編曲或即興的人。最好還是先要學會看五線譜。
+
+\paragraph{Wiwi老師，可以分享一下您每天大概的生活作息嗎？\textnormal{（Allen Lin）}} ~\\
+早上9:30起床，出門買早餐，一邊吃早餐一邊看YouTube或Facebook。每天主要工作是教鋼琴學生。晚上九點之後就是寫專欄、作曲、做好和弦、看書、學習或準備教材等。半夜一點半左右打德州撲克，到兩點半聽一直有人講話的Podcast睡覺。
+
+\paragraph{wiwi老師:請問可以簡單介紹您如何連接您的midi設備及如何建立音樂工作室嗎？\textnormal{（林育崧）}} ~\\
+電腦有 Mac Pro，加上兩個 27\textquotedbl 的熒幕，還有 13\textquotedbl 的MacBook Pro和 11\textquotedbl 的MacBook Air，以及 iPad Mini 和 iPhone。有 Roland RD-700SX、Yamaha MOXF6、Korg microARRANGER，接到同一個混音器再接到電腦的錄音介面 Motu 4pre。還有很多支麥克風錄各種東西。用 Reason 8.3 軟體編曲作曲錄音混音，有時用 Logic Pro。
+
+\paragraph{想請問wiwi師父，想練就師父此般功夫，有無什麼每天持續必練秘籍或是心法，才可融通古典、流行等等各大門派？\textnormal{（王詩澎）}}
+
+遇到不懂的事情想辦法弄懂，每天都學一點點，問Google、維基百科、YouTube，懂的越來越多就越來越能把各種事情串在一起。
+
+\paragraph{我是那種聽音樂的時候一發現新的和弦走法小招數和循環和弦進行就會忍不住馬上筆記下來用在自己的鋼琴伴奏上的人。十多年來我聽了很多歌也累積不少小招數，但光憑白己四處做實驗跌跌撞撞累積出來的經驗 和自己brainstorming之後的小小理論，真的無法滿足我。我腦中時常對一段旋律想像出該配甚麼和弦，偏偏腦子想得到手卻彈不出來，於是想藉助大量的理論來滿足我的好奇心，最重要的是要能夠彈出來，卻又不知道該怎麼入門讓我很無力。請問老師有什麼建議能給我們這些業餘狂熱者嗎？\textnormal{（徐國偉）}} ~\\
+推薦每一個學音樂的人都去瞭解一下爵士音樂的和聲，至少看一本爵士音樂的理論書。爵士樂的和聲觀念、調式觀念和基本思考模式不管對哪種風格的創作都非常實用。推薦 Mark Levine 的 \textit{The Jazz Piano Book}。
+
+\paragraph{Wiwi老師，請問您，若您學習音樂的路程可以從來，您會如何重新安排與規劃音樂的學習歷程呢？謝謝您。\textnormal{（Allen Lin）}}
+
+現在和以前的時代差太多了。要把英文學好一點，彈琴的姿勢要健康，要學習除了唸書之外的很多事情。
+職業生涯遇到困難或想法卡住的時候可以看Seth Godin的部落格 (\url{http://sethgodin.typepad.com})。
+
 \section{大和弦裡的第 11 度音？}
+
+大和弦的第11度音聽起來怪怪的是因為7和11度音之間是三全音。解決辦法是在大11和大13和弦中將11度音換成$\sharp$11度音，或者省略11度音。加入$\sharp$11度音後聲音可能變得比較刺激和前衛（Lydian 調式）。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {c1:maj11 c:maj11.13 c:maj9.11+ c:maj11.11+.13 c:maj13^11}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \accidentalStyle forget
+    \cadenzaOn
+    \chordmode {c1:maj11 c:maj11.13 c:maj9.11+ c:maj11.11+.13 c:maj13^11}
+  }
+>>
+\end{lilypond}
+
 \section{超酷炫的屬和弦變化音！}
+
+屬和弦變化音：把屬和弦裡的某一些音，升高或降低一個半音（通常是5度或9度音）。
+
+有$\flat$5 ($\sharp$11), $\sharp$5 ($\flat$13), $\flat$9, $\sharp$9，組合起來就有九種屬九和弦，也可以在屬7、11、13和弦中用。
+
 \section{小 11 和弦！}
+
+小11和弦：取出大調音階的第1、3、5、7、9、11音，然後把第3和第7音降低半音。\\
+有很現代、複雜、酷炫的聲音。
+
+小11和弦不省略任何音最簡單的配置方法有：
+
+\medskip
+
+\begin{tabular}{m{2cm} m{2cm} m{2cm} m{2cm} m{2cm}}
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:m11}
+  }
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \chordmode {c1:m11}
+      \bar ""
+    }
+  }
+>>
+\end{lilypond}
+&
+$\xrightarrow{\text{低音降低八度}}$
+&
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c1:m11
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g bes d f>1
+        \bar ""
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c ees'>1
+      }
+    }
+  >>
+>>
+\end{lilypond}
+&
+$\xrightarrow{\text{最高音降低八度}}$
+&
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c1:m11
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <f, g bes d>1
+        \bar ""
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c ees'>1
+      }
+    }
+  >>
+>>
+\end{lilypond}
+\end{tabular}
+
+\medskip
+
+半音半音往上移，練習每一個音開始的配置。練熟之後可以任意亂跳，很容易組成聽起來很現代的和聲進行。
+
 \section{更多小 11 和弦的使用方法！（續集）}
+
+上面的配置方法五個音聚集在高處，聽上去比較複雜、糾結。若要聽起來比較開闊，可以試試這種：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c1:m11
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <ees bes' f'>1
+        \bar ""
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c g' d'>1
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+讓小11和弦不要太夢幻、糾結、前衛的話，可以拿走五度和九度音（Cm\super{7(add11)}）。實際可以將上面三個音順序任意調換、重複。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:m7.11^5}
+  }
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \chordmode {c1:m7.11^5}
+      \bar ""
+    }
+  }
+>>
+\end{lilypond}
+
 \section{什麼是「借用和弦」？}
 
 \ruby{借用和弦}{Borrowed Chord}（\ruby{調式互換}{Modal Interchange}、\ruby{調式混合}{Mode Mixture}）：拿「同一主音、但不同調式」的和弦來用。
 
+例如可以把 C 大調的和弦換成 C 小調的和弦。
+
 \section{一次搞懂「泛音列」！}
+
+你聽到的「一個音」，其實不是只有「一個頻率」而已，是很多振動模式的混合。
+
+\medskip
+
+\begin{tabular}{m{2cm} c c c c c c}
+\multirow{4}{*}{
+\begin{lilypond}[fragment,staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \override Staff.TimeSignature #'stencil = ##f
+    c1_\markup {\center-align{\huge{130Hz}}}
+    \bar ""
+  }
+}
+\end{lilypond}
+} & 音高 & \multicolumn{5}{c}{音色} \\
+& $\boldsymbol{\downarrow}$ & \multicolumn{5}{c}{\downbracefill} \\
+& \large{130} & \large{260} & \large{390} & \large{520} &
+  \large{650} & \large{$\cdots$} \\
+& 基礎音 & 第二泛音 & 第三泛音 & 第四泛音 & 第五泛音 &
+
+\end{tabular}
+
+每種樂器發出的基礎音和每個泛音之間的音量關係不同，從而產生不同音色。大腦通過偵測這些音量關係來分辨不同樂器的聲音。
+
+\ruby{泛音列}{Harmonic Series}表：（上方數字表示該泛音與平均律音高的誤差）
+
+\medskip
+
+\begin{lilypond}[staffsize=16]
+\new Staff {
+  \relative c {
+    \cadenzaOn
+    \clef "bass"
+    \override Staff.TimeSignature #'stencil = ##f
+    c,,1*1/4 c'4 g'^"+2" c e^"-14" g^"+2" bes^"-31"
+    \clef "treble"
+    c d^"+4" e^"-14" ges^"-49" g^"+2" aes^"+41" bes^"-31" b^"-12"
+    c cis^"+5" d^"+4" dis^"-2" e^"-14"
+    \bar "|"
+  }
+}
+\addlyrics {
+  " " "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20"
+}
+\layout {
+  ragged-right = ##f
+  \context {
+    \Score
+    \override SpacingSpanner.uniform-stretching = ##t
+  }
+  \context {
+    \Voice
+    \override Stem.length = #0
+  }
+}
+\end{lilypond}
+
 \section{動機發展：寫旋律時，沒有靈感怎麼辦？}
 \section{要怎麼聽起來像是 007？}
 \section{什麼是 Altered Scale？}
@@ -1032,4 +1569,15 @@ chExceptions = #( append
 
 主要是看譜子上面寫的速度形容詞，跟節拍器上寫的不是一一對應的，還是跟個人理解有關。
 
+\section{節拍器的故事！}
+
+伽利略發現了鐘擺原理，一個世紀後才出現計時和音樂用的鐘擺。法國音樂家羅力(Étienne Loulié)第一個做出了可以調節速度的鐘擺節拍器，但有三個缺陷：擺動不持久、需要很長的鐘擺才能擺動慢速的拍子、不會發出聲音。
+
+Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德國工程師梅智(Johann Nepomuk Maelzel)用這個設計加上刻度申請了專利，開始製造行銷節拍器。樂譜中M.M. = Maelzel's Metronome = 梅智的節拍器。貝多芬有約150首作品標明了梅智的節拍器刻度。
+
+節拍器上的刻度單位是每分鐘打幾拍：BPM = Beats per minute。
+
+李蓋替在1962年發表了一首用100台節拍器演奏的交響詩。
+
 \end{document}
+
