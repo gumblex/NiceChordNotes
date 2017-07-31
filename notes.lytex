@@ -5,9 +5,12 @@
 \usepackage{titling}
 \usepackage{caption}
 \usepackage{amsmath}
-\usepackage{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 \usepackage{lilyglyphs}
 \usepackage{array}
+\usepackage{tabu}
+\usepackage{tabularx}
+\usepackage{stackengine}
 \usepackage{multirow}
 \usepackage{xfrac}
 \usepackage{ruby}
@@ -22,6 +25,9 @@
     %Define standard arrow tip
     >=stealth',
 }
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcommand*{\episoderef}[1]{\hyperref[{#1}]{第 \ref*{#1} 集：\nameref*{#1}}}
+\newcommand*{\episodenumref}[1]{\super{\hyperref[{#1}]{(\ref*{#1})}}}
 \title{「好和弦」筆記}
 \date{}
 
@@ -110,6 +116,7 @@ chExceptions = #( append
 有模糊的感覺，有點不協和，現代流行音樂常用。加 2 前後功能相同。
 
 \section{和弦有什麼功能？}
+\label{sec:ep4}
 
 \ruby{主}{tonic}：開始、結束、穩定、好了、完成了，“家”（C）
 
@@ -140,6 +147,7 @@ chExceptions = #( append
 \end{tikzpicture}
 
 \section{和弦還有什麼功能？（續集）}
+\label{sec:ep5}
 
 \begin{tabular}{c | c | c | c}
 \hline
@@ -631,6 +639,7 @@ Dorian (2)：第六個音是大六度，有古老、神話的感覺，而不是�
 \end{lilypond}
 
 \section{Phrygian 和 Lydian 調式！}
+\label{sec:ep25}
 
 Phrygian (3)：第二個音和第一個音差半音，有西班牙的感覺
 
@@ -707,21 +716,25 @@ C Whole tone Scale
 其中的增三和弦（C\super{($\sharp$5)} = Caug = C+）跟全音音階有類似效果。
 
 \section{副屬和弦！}
+\label{sec:ep28}
 
 \begin{tabular}{ccccc}
 （家） & & （假裝的家的外面） & & （假裝的家） \\
 \large{C} & $\rightarrow$ & \large{B\super{7}} & $\rightarrow$ & \large{Em} \\
 \end{tabular}
 
-\bigskip
+\medskip
 
 \ruby{副屬和弦/次屬和弦}{secondary dominant chord}：要接的那個和弦算起，上面五度音的屬七和弦，可以放在那個和弦前面裝飾。
 
 \section{很酷炫的「三全音代理」和弦！}
+\label{sec:ep29}
 
 \ruby{三全音代理}{tritone substitution}：屬七和弦裡面的三全音讓它想要接到某個目標和弦。可以用另一個有同一個三全音的屬七和弦代替原來的屬七和弦接到同一個目標和弦。例如：G\super{7} $\rightarrow$ D$\flat$\super{7}, E\super{7} $\rightarrow$ B$\flat$\super{7}。
 
 可以在要接的和弦前面插入比那個和弦高半音的屬七和弦，有滿大機會聽起來很酷炫。例如：C $\rightarrow$ F$\sharp$\super{7} $\rightarrow$ F\super{maj7}, C $\rightarrow$ B$\flat$\super{7} $\rightarrow$ Am\super{7}。也可以加入屬九、屬十一、屬十三等和弦。
+
+\medskip
 
 \begin{lilypond}[quote,staffsize=16]
 chExceptionMusic = {
@@ -768,6 +781,7 @@ chExceptions = #( append
 \end{lilypond}
 
 \section{讓你的副屬和弦更漂亮的小技巧！}
+\label{sec:ep30}
 
 在五級和弦之前加入裝飾性的二級和弦（「橋」和弦）。
 
@@ -1093,7 +1107,7 @@ C 的大調五聲音階在 C, Dm, Em, F, G, Am 上面聽起來都不錯，除了
 
 \section{大和弦裡的第 11 度音？}
 
-大和弦的第11度音聽起來怪怪的是因為7和11度音之間是三全音。解決辦法是在大11和大13和弦中將11度音換成$\sharp$11度音，或者省略11度音。加入$\sharp$11度音後聲音可能變得比較刺激和前衛（Lydian 調式）。
+大和弦的第11度音聽起來怪怪的是因為7和11度音之間是三全音。解決辦法是在大11和大13和弦中將11度音換成$\sharp$11度音，或者省略11度音。加入$\sharp$11度音後聲音可能變得比較刺激和前衛（Lydian 調式\episodenumref{sec:ep25}）。
 
 \begin{lilypond}[quote,fragment,staffsize=16]
 <<
@@ -1113,6 +1127,7 @@ C 的大調五聲音階在 C, Dm, Em, F, G, Am 上面聽起來都不錯，除了
 \end{lilypond}
 
 \section{超酷炫的屬和弦變化音！}
+\label{sec:ep42}
 
 屬和弦變化音：把屬和弦裡的某一些音，升高或降低一個半音（通常是5度或9度音）。
 
@@ -1337,22 +1352,611 @@ $\xrightarrow{\text{最高音降低八度}}$
 \end{lilypond}
 
 \section{動機發展：寫旋律時，沒有靈感怎麼辦？}
+
+如貝多芬的第五號交響曲中的「登登登等～」這樣的小片段可叫做\ruby{動機}{Motif}，把小片段利用各種技巧發展成大片段叫做\ruby{動機發展}{Motivic Development}。
+
+動機發展的技巧：複製貼上、調整高低、上下相反、變化節奏，然後綜合運用。
+
 \section{要怎麼聽起來像是 007？}
+
+在和弦拉長的時候改變其中一個聲部，讓它上下半音移動，製造不安、懸疑的效果。可以用在任何小調旋律，而用在大調中還滿快樂的。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {e2:m e:m3.6- e:m3.6 e:m3.6-}
+  }
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {e2:m c/e cis:dim/e c/e}
+  }
+  \relative c {
+    \override Staff.TimeSignature #'stencil = ##f
+    \clef "bass"
+    \accidentalStyle piano
+    \chordmode {e,2:m e,:m3.6- e,:m3.6 e,:m3.6-}
+    \bar ":|."
+  }
+>>
+\end{lilypond}
+
 \section{什麼是 Altered Scale？}
+
+Altered Scale（變化音階）：把一個屬九和弦可以變化的音都變化過\episodenumref{sec:ep42}，再把全部的音合在一起的音階。
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:9}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    \accidentalStyle piano
+    c1 e g bes d
+    \bar "|."
+  }
+>>
+\end{lilypond}
+
+$\rightarrow$ C Altered Scale
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  \cadenzaOn
+  \accidentalStyle piano
+  c1 des dis e ges gis bes c
+  \bar "|."
+}
+\end{lilypond}
+
+$=$ C$\sharp$ 旋律小音階，與 C Altered Scale 使用到的音完全相同
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  \cadenzaOn
+  \accidentalStyle piano
+  cis1 dis e fis gis ais bis cis
+  \bar "|."
+}
+\end{lilypond}
+
+$=$ B 大調音階，主音升高半音
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  \cadenzaOn
+  \accidentalStyle piano
+  c1 cis1 dis e fis gis ais c
+  \bar "|."
+}
+\end{lilypond}
+
+$=$ C 全音音階，第二個音分裂成 $\flat$2 和 $\sharp$2 音
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  \cadenzaOn
+  \accidentalStyle piano
+  c1 des dis e fis gis ais c
+  \bar "|."
+}
+\end{lilypond}
+
+練習彈每一個調，左手彈省略五度音的屬七和弦，右手彈 Altered Scale。
+
 \section{鄰音、經過音和倚音！}
+
+\ruby{和聲外音}{Non-chord Tone}：不屬於當下和弦的音。
+
+\begin{itemize}
+\item \ruby{鄰音}{Neighbor Tone}：從和弦音往上或往下到和聲外音再回來。
+\item \ruby{經過音}{Passing Tone}：夾在兩個和聲音中間被經過的和聲外音。
+\item \ruby{倚音}{Appoggiatura}：任何發生在相對強拍的和聲外音。在強拍上故意衝突，在後面的拍子解決掉。
+\end{itemize}
+
+\pagebreak
+
+\begin{tabular}{c c c}
+\begin{lilypond}[staffsize=16]
+circle =
+\once \override NoteHead.stencil = #(lambda (grob)
+    (let* ((note (ly:note-head::print grob))
+           (combo-stencil (ly:stencil-add
+               note
+               (circle-stencil note 0.1 0.8))))
+          (ly:make-stencil (ly:stencil-expr combo-stencil)
+            (ly:stencil-extent note X)
+            (ly:stencil-extent note Y))))
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      c4 \circle d c2
+      \bar ""
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      <c e g>1
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+&
+\begin{lilypond}[staffsize=16]
+circle =
+\once \override NoteHead.stencil = #(lambda (grob)
+    (let* ((note (ly:note-head::print grob))
+           (combo-stencil (ly:stencil-add
+               note
+               (circle-stencil note 0.1 0.8))))
+          (ly:make-stencil (ly:stencil-expr combo-stencil)
+            (ly:stencil-extent note X)
+            (ly:stencil-extent note Y))))
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      c4 \circle d e2
+      \bar ""
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      <c e g>1
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+&
+\begin{lilypond}[staffsize=16]
+circle =
+\once \override NoteHead.stencil = #(lambda (grob)
+    (let* ((note (ly:note-head::print grob))
+           (combo-stencil (ly:stencil-add
+               note
+               (circle-stencil note 0.1 0.8))))
+          (ly:make-stencil (ly:stencil-expr combo-stencil)
+            (ly:stencil-extent note X)
+            (ly:stencil-extent note Y))))
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \circle f2 e
+      \bar ""
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      <c e g>1
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+\\
+鄰音 & 經過音 & 倚音 \\
+\end{tabular}
+
 \section{用高低半音接到目標和弦！}
+
+接到目標和弦的方式有：
+
+\begin{itemize}
+\item \episoderef{sec:ep28}
+\item \episoderef{sec:ep30} 副屬和弦前面加入二級和弦
+\item \episoderef{sec:ep29} 先接到目標和弦高半音的屬七和弦
+\item 先接到目標和弦的移高半音或移低半音的和弦，再接到目標和弦
+\end{itemize}
+
 \section{用 2-5-1 和弦進行，漂亮地轉調！}
+\label{sec:ep52}
+
+用一個 2-5-1 和弦進行\episodenumref{sec:ep30}，接到低一個全音的 2-5-1 和弦進行，可以用來連環轉調。
+
 \section{法國帥哥鋼琴家最愛的伴奏模式！}
+
+Richard Clayderman 非常喜歡用這個伴奏：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1}
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      <c e g>1 <c g' e'>
+      c8 g' e' g, e' g, e' g,
+      \bar "|."
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+可用的音域寬，只要不放到超級低音。相應1、5、8度的伴奏缺乏3度音，效果差點。
+
+除了這種節奏，還可以把這三個音用其他節奏彈。
+
 \section{琶音伴奏：音跟音應該離多遠？}
+
+\begin{tabularx}{\textwidth}{C C C}
+\multicolumn{3}{c}{\begin{lilypond}[staffsize=16]
+\relative c' {
+  \override Staff.TimeSignature #'stencil = ##f
+  c8 e g c e2
+  \bar "||"
+  \clef "bass"
+  c,,8 e g c e2
+  \bar "||"
+  c,8 g' c e g2
+  \bar "||" \break
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}} \\
+輕巧 & 稍微厚重 & 清新 \\
+\multicolumn{3}{c}{\begin{lilypond}[staffsize=16]
+\relative c, {
+  \override Staff.TimeSignature #'stencil = ##f
+  \clef "bass"
+  c8 e g c e2
+  \bar "||"
+  c,8 g' c e g2
+  \bar "||"
+  c,,8 c' e g c2
+  \bar "||" \break
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}} \\
+太髒 & 厚重 & 呆呆的 \\
+\multicolumn{3}{c}{\begin{lilypond}[staffsize=16]
+\relative c, {
+  \override Staff.TimeSignature #'stencil = ##f
+  \clef "bass"
+  c8 e' g c e2
+  \bar "||"
+  c,,8 g' e' g c2
+  \bar "||"
+  c,,8 g' e' c' g'2
+  \bar "|." \break
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}} \\
+兼具低音和乾淨 & 渾厚但不混淆 & 寬闊 \\
+\end{tabularx}
+
 \section{數字低音！}
+
+\ruby{數字低音}{Figured Bass}：寫出最低音，然後用數字標示低音上面幾度的位置有其他的音。
+
+和弦代號
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1 c/e c/g g:7 g:7/b g:7/d g:7/f}
+  }
+  \relative c {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    \clef "bass"
+    <c e g>1 <e g c> <g c e>
+    <g, b d f> <b d f g> <d f g b> <f g b d>
+  }
+>>
+\end{lilypond}
+
+數字低音
+
+\begin{lilypond}[quote,fragment,staffsize=16]
+<<
+  \relative c {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    \clef "bass"
+    c1 e g
+    g, b d f
+    \bar ""
+  }
+  \new FiguredBass {
+    \figuremode {
+      <5 3>1 <6 3> <6 4>
+      <7 5 3> <6 5 3> <6 4 3> <6 4 2>
+    }
+  }
+>>
+\end{lilypond}
+
+簡寫成
+
+\medskip
+
+\begin{tabu}{c c c c c c c}
+\rowfont{\small\bfseries}
+（空白） & 6 & \stackanchor[1pt]{6}{4} & 7 & \stackanchor[1pt]{6}{5}
+& \stackanchor[1pt]{4}{3} & \stackanchor[1pt]{4}{2} 或2
+\smallskip
+\\
+三和弦 & 三和弦 & 三和弦 & 七和弦 & 七和弦 & 七和弦 & 七和弦 \\
+原位 & 第一轉位 & 第二轉位 & 原位 & 第一轉位 & 第二轉位 & 第三轉位 \\
+\end{tabu}
+
 \section{如何幫一個旋律配上和弦？}
+
+配和聲很困難，也沒有正確答案。重點有：
+
+\begin{enumerate}
+\item 現在的旋律是什麼音？然後你就配上含有那個音的和弦
+\item 下一個小節我要用什麼和弦？
+\item 這一句要聽起來像是告一段落，還是要聽起來像還沒結束？
+\item 我要多久換一個和弦？
+\end{enumerate}
+
 \section{用 C, G7, Dm 和 F 來配和弦！}
+
+Dm 和 F 有中介性質\episodenumref{sec:ep4}\episodenumref{sec:ep5}。可以考慮用這兩個和弦覆蓋旋律音。Dm 比 F 更憂鬱、黯淡一點。
+
+可以用 Dm（二級）接 G\super{7}（五級）\episodenumref{sec:ep30}\episodenumref{sec:ep52}。
+
 \section{使用大調的 1 到 6 級來配和弦！}
+
+用 C, Dm, Em, F, G\super{7}, Am，可以根據\episoderef{sec:ep5}來配和弦連接。
+
 \section{副屬和弦怎麼用？（Secondary Dominant Chord）}
+
+\begin{enumerate}
+\item 哪裡有換和弦？
+\item 在換和弦處的前一小節，放放看副屬和弦\episodenumref{sec:ep28}。
+\item 副屬和弦跟旋律音相配合嗎？如果OK的話就用下去。
+\item 用好用滿。濫用副屬和弦有時候有品味不是很好的感覺。
+\end{enumerate}
+
 \section{升級成 add2 和 m7、以及一個新的思考方法}
+
+\paragraph{想法1：直接「升級」原有的和弦。}
+
+\begin{itemize}
+\item 大三和弦 $\rightarrow$ 加二和弦（add2）
+\item 小三和弦 $\rightarrow$ 小七和弦（m7）
+\item 屬七和弦 $\rightarrow$ 先不要動它
+\end{itemize}
+
+\paragraph{想法2：因為有了 add2 和 m7，所以與旋律的搭配有新的可能。} ~\\
+
+例如用 C\super{(add2)} 和弦，就表示你把 Re 也看作 C 和弦的一部分。
+
 \section{旋律是什麼音的時候可以配 C 和弦？（提示：比你想像中的多）}
+
+以下全部都和 C 和弦有相同的根音、性質和功能（所以它們都是「C 和弦」）。
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c d e g>1-\markup { \super "(add2)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {c1:maj9 c:maj9.11+ c:maj13 c:5.2 c:6 c:6.9}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1:maj9 c:maj9.11+ c:maj13 c:5.2 c:6 c:6.9}
+    \bar ""
+  }
+>>
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c d e g>1-\markup { \super "(add2)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {c1 c:5.2 c c:5.11+ c c:6 c:maj7}
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        c d e fis g a b
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        \repeat unfold 7 {<c e g>1}
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
+以下全部都和 Dm 和弦有相同的根音、性質和功能（所以它們都是「Dm 和弦」）。
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <d e f a>1-\markup { m \super "(add2)" }
+  <d f g a>1-\markup { m \super "(add4)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {d1:m7 d:m7+ d:m9 d:m11 d:m13 d:m5.2 d:m5.4 d:m6 d:m6-}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \accidentalStyle modern
+    \chordmode {d1:m7 d:m7+ d:m9 d:m11 d:m13 d:m5.2 d:m5.4 d:m6 d:m6-}
+    \bar ""
+  }
+>>
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <d e f a>1-\markup { m \super "(add2)" }
+  <d f g a>1-\markup { m \super "(add4)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {d1:m d:m5.2 d:m d:m5.4 d:m d:m6- d:m6 d:m7 d:m7+}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        d e f g a bes b c cis
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        \repeat unfold 9 {<d f a>1}
+      }
+    }
+  >>
+>>
+\end{lilypond}
+
 \section{旋律是什麼音的時候可以配上 C7 和弦？（提示：比你想像中還多）}
+
+因為屬七和弦本來就是要很糾結，所以你讓它更糾結並不會怎麼樣。幾乎任何旋律音都可以配上幾乎任何一個屬七和弦，都可以找到聽上去還不錯的配置。（除了大七度音沒有合理的解釋）
+
+例如：（任意旋律音配C\super{7}和弦及其變化型 / 固定旋律音配屬七和弦）
+
+\medskip
+
+\begin{tabular}{c c c c c c c c c c c c c}
+C & C$\sharp$ & D & D$\sharp$ & E & F & F$\sharp$ &
+G & G$\sharp$ & A & A$\sharp$ & B & C \\
+\hline
+C\super{7} & C\super{7($\flat$9)} & C\super{9} & C\super{7($\sharp$9)} &
+C\super{7} & C\super{11} & C\super{9($\sharp$11)} & C\super{9} &
+C\super{9($\flat$13)} & C\super{13} & C\super{11} &
+\ruby{E/C\super{7}}{Polychord} & C\super{9} \\
+C\super{9} & A\super{$\flat$}/D\super{$\flat$7} & D\super{9} &
+E$\flat$\super{13(sus4)} & E\super{7($\sharp$5)} & F\super{9} &
+F$\sharp$\super{9($\flat$5)} & G\super{11} & A$\flat$\super{13} &
+A\super{7}$\big(\substack{\text{\sharp9}\\\text{\sharp5}}\big)$ &
+B$\flat$\super{13} & B\super{7($\flat$9)}
+\end{tabular}
+
+\medskip
+
+$\rightarrow$ 幾乎所有的音，都可以配上幾乎所有的和弦。
+
 \section{考大學音樂系的樂理，到底在考什麼？}
+
+基礎樂理題目，佔 60\%。
+
+\begin{enumerate}
+\item \textbf{和聲題} (20\%)：根據數字低音寫出理論上完全正確的四部合唱用的和弦。
+\item \textbf{和弦結構辨認} (10\%)：寫出和弦及其轉位名稱。
+\item \textbf{音程} (10\%)：寫出音程名稱、根據音程填空。
+\item \textbf{音階} (10\%)：寫出指定音階或調式。
+\item \textbf{移調與移調樂器} (10\%)：移調記譜。
+\end{enumerate}
+
+考卷 40\% 是每題2分的選擇題。選擇題大部分都出的很糟糕。好題目應該是：
+
+\begin{enumerate}
+\item 實際有用
+\item 需要動腦
+\item 可以辨別一個學生的樂理能力是不是比較好
+\end{enumerate}
+
+樂理考卷應該考\textbf{音樂理論}題目，而不是\textbf{音樂常識}題目。
+
 \section{什麼是「減和弦」？（Diminished Chords）}
 \section{半減七和弦！（The ø Chord）}
 \section{和弦與音階的對應關係？}
@@ -1361,9 +1965,6 @@ $\xrightarrow{\text{最高音降低八度}}$
 \section{持續低音六四和弦！（Pedal Six-four Chord）}
 \section{好和弦分析林宥嘉的《兜圈》，以及 4 個讓下行低音更有新鮮感的技巧！}
 \section{用很簡便的思考方式，讓屬和弦聽起來更酷炫}
-
-...
-
 \section{「卡農」和聲進行，以及為什麼很多流行歌的旋律都很像}
 
 卡農是一種作曲技巧，只是 \textit{Pachelbel's Canon} 這首最有名。
