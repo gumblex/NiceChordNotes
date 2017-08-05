@@ -70,7 +70,7 @@
 
 和弦代號：根音+字尾。變化型：add 增加音（2=add2, 6=add6）；sus 不要3度音，換成4或2度音（sus=sus4）；omit 省略某個音；其他就寫在括號裡。轉位：斜線唸成 on，不是本身的音就在下面多加一個音。
 
-\ruby{半減}{half-diminished}：$\varnothing$ (m7$\flat$5)；
+\ruby{半減}{half-diminished}：ø (m7$\flat$5)；
 \ruby{減}{diminished}：dim7；
 \ruby{小大}{minor-major}：mmaj7；
 （\ruby{增大}{augmented major}：maj7($\sharp$5)；
@@ -1106,6 +1106,7 @@ C 的大調五聲音階在 C, Dm, Em, F, G, Am 上面聽起來都不錯，除了
 職業生涯遇到困難或想法卡住的時候可以看Seth Godin的部落格 (\url{http://sethgodin.typepad.com})。
 
 \section{大和弦裡的第 11 度音？}
+\label{sec:ep41}
 
 大和弦的第11度音聽起來怪怪的是因為7和11度音之間是三全音。解決辦法是在大11和大13和弦中將11度音換成$\sharp$11度音，或者省略11度音。加入$\sharp$11度音後聲音可能變得比較刺激和前衛（Lydian 調式\episodenumref{sec:ep25}）。
 
@@ -1909,6 +1910,7 @@ chExceptions = #( append
 \end{lilypond}
 
 \section{旋律是什麼音的時候可以配上 C7 和弦？（提示：比你想像中還多）}
+\label{sec:ep62}
 
 因為屬七和弦本來就是要很糾結，所以你讓它更糾結並不會怎麼樣。幾乎任何旋律音都可以配上幾乎任何一個屬七和弦，都可以找到聽上去還不錯的配置。（除了大七度音沒有合理的解釋）
 
@@ -1958,8 +1960,257 @@ $\rightarrow$ 幾乎所有的音，都可以配上幾乎所有的和弦。
 樂理考卷應該考\textbf{音樂理論}題目，而不是\textbf{音樂常識}題目。
 
 \section{什麼是「減和弦」？（Diminished Chords）}
+
+\ruby{減和弦}{Diminished Chords}：用小三度堆疊而成的和弦。
+
+\begin{tabular}{c c}
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:dim}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    c1 ees ges
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+&
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:dim7}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    c1 ees ges beses
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+\\
+\smallskip
+\ruby{減三和弦}{diminished triad}：C\super{dim} 或 C\super{o}
+&
+\ruby{減七和弦}{diminished seventh chord}：C\super{dim7} 或 C\super{o7}
+\end{tabular}
+
+\medskip
+
+其中減五度（三全音）會製造不舒服、緊張的感覺，所以減和弦被認為有緊張、危險、要死掉了的象徵意義。大聲的用有驚嚇的感覺，小聲點用就有陰森有鬼的意味。
+
+B\super{dim}和B\super{dim7}可以看作缺了一個音的G\super{7}和G\super{7($\flat$9)}，所以可以替代使用。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {b1:dim g:7 b1:dim7 g:7.9-}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {b1:dim g:7 \bar "||" b1:dim7 g:7.9- \bar "|."}
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
 \section{半減七和弦！（The ø Chord）}
+
+\ruby{半減七和弦}{half-diminished seventh chords}：半減和弦家族的唯一一個和弦。根音+小三度+減五度+小七度。
+
+或稱小七降五和弦 m\super{7($\flat$5)}，但和小七和弦聲音用法不同。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:m7.5-}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \cadenzaOn
+    c1 ees ges bes
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+通常當作小調二級，或大調七級和弦使用。也可以當作缺了根音的 G\super{9} 使用。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {b1:dim g:7 b1:m7.5- g:9}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {b1:dim g:7 \bar "||" b1:m7.5- g:9 \bar "|."}
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
 \section{和弦與音階的對應關係？}
+
+這個和弦要配什麼旋律？
+
+\begin{enumerate}
+\item 把和弦疊高到同一家族的13和弦
+\item 全部的和弦音放到一個八度內、集合成一個音階
+\item 用那個音階來寫旋律
+\end{enumerate}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  <c e g b d' f' a'>1-\markup { \super "maj13" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set chordNameExceptions = #chExceptions
+    \chordmode {c1 c:maj9.11.13}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1 \bar "||" c:maj9.11.13 \bar "||"}
+    \cadenzaOn
+    c_"C major scale" d e f g a b
+    \bar "|."
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+\begin{quote}
+\begin{lilypond}[staffsize=16]
+chExceptionMusic = {
+  <c e g b d' fis' a'>1-\markup { \super{"maj13"(\sharp 11)} }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set chordNameExceptions = #chExceptions
+    \chordmode {c1 c:maj9.11+.13}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1 \bar "||" c:maj9.11+.13 \bar "||"}
+    \cadenzaOn
+    c_"C Lydian" d e fis g a b
+    \bar "|."
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}\episodenumref{sec:ep41}
+\end{quote}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:m c:m9.11.13}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1:m \bar "||" c:m9.11.13 \bar "||"}
+    \cadenzaOn
+    c_"C Dorian" d ees f g a bes
+    \bar "|."
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+除了 Dorian 可作為小和弦上的預設音階，還有 Aeolian 及和聲小音階。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1:7 c:9.11.13}
+  }
+  \relative c' {
+    \override Staff.TimeSignature #'stencil = ##f
+    \chordmode {c1:7 \bar "||" c:9.11.13 \bar "||"}
+    \cadenzaOn
+    c_"C Mixolydian" d e f g a bes
+    \bar "|."
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+屬和弦上還可以用任何音階寫旋律。\episodenumref{sec:ep62}
+
+練習時可以左手按和弦，右手切換到相對應的音階。可以拿現成曲子的和弦表，也可以練不同順序的音階。
+
 \section{終止六四和弦！（The Cadential 64 Chord）}
 \section{經過六四和弦！（Passing Six four Chord）}
 \section{持續低音六四和弦！（Pedal Six-four Chord）}
