@@ -15,7 +15,7 @@
 \usepackage{xfrac}
 \usepackage{ruby}
 \setmainfont{TeX Gyre Schola}
-\setCJKmainfont{Source Han Serif TW}
+\setCJKmainfont{Source Han Serif TC}
 \ctexset{
   section/format = \large\bfseries
 }

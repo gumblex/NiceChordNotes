@@ -25,7 +25,7 @@ build/notes_cn.tex: build/notes_cn.lytex
 
 build/notes_cn.lytex: notes.lytex
 	opencc -c tw2sp.json -i notes.lytex | \
-	sed 's/Source Han Serif TW/Source Han Serif CN/' > build/notes_cn.lytex
+	sed 's/Source Han Serif SC/Source Han Serif SC/' > build/notes_cn.lytex
 
 clean:
 	rm -rf build/ notes.pdf notes_cn.pdf
