@@ -2431,5 +2431,176 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
 
 李蓋替在1962年發表了一首用100台節拍器演奏的交響詩。
 
+\section{蕭邦大師教你玩「半音階」！}
+
+\section{會不會有一天，所有的音樂都被寫完了？}
+
+\section{拉赫曼尼諾夫大師，一次教你 10 個半音階和聲技巧！}
+
+  \subsection{目標和弦 Am}
+
+恆定結構：
+
+0
+0
+Fm  | f,, c, | ab, f
+---
+F#m | f#,, c#, | aN, f#
+Gm  | g,, d, | bb, g
+G#m | g#,, d#, | bN, g#
+---
+Am  | a,, e, | c a
+|
+|
+===
+
+加另外一層半音階：
+
+0
+0
+Fm(maj7)  | f,, c, | ab, e f
+---
+F#m6      | f#,, c#, | aN, d# f#
+Gm        | g,, d, | bb, dN g
+G#m(add4) | g#,, d#, | bN, c# g#
+---
+Am        | a,, e, | c cN a
+|
+|
+===
+
+  \subsection{Am 接 Dm}
+
+插入附屬和弦的附屬和弦。
+
+最高音形成半音階。
+
+持續低音 A。
+
+Am     | a,, e, | c e a
+---
+E7/A   | a,, e, | b, d g#
+---
+A7(b9) | a,, e, | bb, c# gN
+---
+Dm     | d,, f, | c d f
+===
+
+  \subsection{Dm 接 G7}
+
+插入半減七和弦。
+
+最高音和最低音形成半音階。
+
+Dm         | d, a, d | f d'
+---
+Dm(maj7)/A | a, c# d | f c#'
+---
+D0/Ab      | ab, cN d | f cN'
+---
+G7         | g, d | f b
+===
+
+  \subsection{C 接 F}
+
+插入三全音代理和弦。
+
+先把 Gb7 歪掉一點變成 G6，再解決回去。
+
+C   | c, g, | e c'
+---
+G6  | g, b, d | e b
+---
+Gb7 | gb, bb, db | e bb
+---
+F   | f, c | c a
+===
+
+  \subsection{目標和弦 Am/E}
+
+先在前面放一個減七和弦。
+
+然後把這個減七和弦的其中三個音寫歪掉半音。
+
+Bbmaj7(#5) | bb,, a, | d f#
+---
+G#dim7/B   | bN,, g#, | d fN
+---
+Am/E       | e,, e, | c e g
+===
+
+  \subsection{目標和弦 Am}
+
+先寫個屬七和弦。
+
+更前面用恆定結構。
+
+0
+G#m | g#,, d#, | b, d#
+Gm  | gN,, dN, | bb, dN
+---
+F#m | f#,, c#, | a, c#
+Fm  | fN,, cN, | ab, cN
+E7  | e,, e, | bN, d g#
+---
+Am  | a,, e, | c aN
+|
+|
+===
+
+最高音再疊一個相反方向的半音階。
+
+0
+G#m(b5)  | g#,, d#, | b, d# e
+Gm7      | gN,, dN, | bb, dN f
+---
+F#m      | f#,, c#, | a, c# f#
+Fm(add9) | fN,, cN, | ab, cN g
+E7       | e,, e, | bN, d g#
+---
+Am       | a,, e, | c aN
+|
+|
+===
+
+  \subsection{Bb/D 接到 Am/E}
+
+設定最高音 E 當作目標。從前十一個半拍開始，半音階爬上去。
+
+再在下方加上有點難解釋的酷炫的東西。
+
+時間：8:28
+
+  \subsection{F 接到 C/E}
+
+在中間插入 Fm。
+
+F   | f, | c a
+---
+Fm  | f, | c ab
+---
+C/E | e, | c g
+===
+
+在流行音樂中也可以用。
+
+  \subsection{Am 在六拍後接到 F}
+
+設定最高音 A 當作目標。從低十個半音開始寫一串半音按過去。
+
+最後四個音疊成八度。
+
+下方用恆定結構，跟剛剛的半音階反方向，連續寫五個屬七和弦。
+
+時間：9:24
+
+  \subsection{七個和弦的和聲進行}
+
+D B0 Am/E C/E B7/E E7(b9) Am
+
+四個音四個音一組半音往下走的單旋律。
+
+時間：10:05
+
 \end{document}
 
