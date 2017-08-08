@@ -17,8 +17,10 @@
 \setmainfont{TeX Gyre Schola}
 \setCJKmainfont{Source Han Serif TC}
 \ctexset{
-  section/format = \large\bfseries
+  section/format = \large\bfseries,
+  subsection/format = \bfseries
 }
+\renewcommand\thesubsection{\arabic{subsection}}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
 \tikzset{
@@ -2379,6 +2381,7 @@ chExceptions = #( append
 \section{如何把一個主旋律，編成任何你想要的樂器編制？}
 \section{好和弦的第 120 集！}
 \section{如何連續堆疊副屬和弦，以及好和弦家庭號大包裝 6 登場！}
+\label{sec:ep123}
 \section{如何連續堆疊教會終止？}
 \section{負面和聲？（Negative Harmony）}
 \section{如何寫「中國風」的音樂？}
@@ -2411,6 +2414,8 @@ chExceptions = #( append
 \section{一起來玩「持續低音」！}
 \section{繼續來玩「持續音」！（續集）}
 \section{一起來玩「恆定結構」！（Constant Structure）}
+\label{sec:ep131}
+
 \section{要怎麼知道一首曲子應該彈多快？}
 
 \begin{itemize}
@@ -2437,170 +2442,508 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
 
 \section{拉赫曼尼諾夫大師，一次教你 10 個半音階和聲技巧！}
 
+拉赫曼尼諾夫將克萊斯勒的《愛之悲》圓舞曲改編成鋼琴獨奏曲。這首曲子中用到的10個半音階技巧：
+
   \subsection{目標和弦 Am}
 
-恆定結構：
+恆定結構\episodenumref{sec:ep131}：
 
-0
-0
-Fm  | f,, c, | ab, f
----
-F#m | f#,, c#, | aN, f#
-Gm  | g,, d, | bb, g
-G#m | g#,, d#, | bN, g#
----
-Am  | a,, e, | c a
-|
-|
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      \skip4 \skip4 f:m fis:m g:m gis:m a:m
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 r <aes f'> <a fis'> <bes g'> <b gis'> <c a'>2.
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 r <f, c'> <fis cis'> <g d'> <gis dis'> <a e'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
-加另外一層半音階：
+加另外一層半音階單音：
 
-0
-0
-Fm(maj7)  | f,, c, | ab, e f
----
-F#m6      | f#,, c#, | aN, d# f#
-Gm        | g,, d, | bb, dN g
-G#m(add4) | g#,, d#, | bN, c# g#
----
-Am        | a,, e, | c cN a
-|
-|
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      \skip4 \skip4 f:m fis:m g:m gis:m a:m
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <<
+          {r4 r <aes f'> <a fis'> <bes g'> <b gis'> <c a'>2.}
+          \\
+          {r2 e4 dis d cis c2.}
+        >>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 r <f, c'> <fis cis'> <g d'> <gis dis'> <a e'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
-  \subsection{Am 接 Dm}
+\subsection{Am 接 Dm}
 
-插入附屬和弦的附屬和弦。
+插入附屬和弦，再在前面放附屬和弦的附屬和弦\episodenumref{sec:ep123}，使最高音形成半音階。
 
-最高音形成半音階。
+前三個和弦使用持續低音 A。
 
-持續低音 A。
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      a2.:m e:7 a:7.9- d:m
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <c e a>2. <b d gis> <bes cis g'> <a d f>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a e'>2. <a e'> <a e'> <d, f'>
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
-Am     | a,, e, | c e a
----
-E7/A   | a,, e, | b, d g#
----
-A7(b9) | a,, e, | bb, c# gN
----
-Dm     | d,, f, | c d f
-===
+\subsection{Dm 接 G\super{7}}
 
-  \subsection{Dm 接 G7}
+插入半減七和弦、小大七和弦，使最高音和最低音形成半音階。
 
-插入半減七和弦。
-
-最高音和最低音形成半音階。
-
-Dm         | d, a, d | f d'
----
-Dm(maj7)/A | a, c# d | f c#'
----
-D0/Ab      | ab, cN d | f cN'
----
-G7         | g, d | f b
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj7 }
+    \chordmode {
+      d2.:m d:maj7.3-/a d:m7.5-/aes g:7
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <f d'>2. <f cis'> <f c'> <f b>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <d a' d>2. <a' cis d> <aes c d> <g d'>
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{C 接 F}
 
-插入三全音代理和弦。
+插入三全音代理和弦\episodenumref{sec:ep29}。把 G$\flat$\super{7} 提高半音，先歪掉一點變成 G\super{6}，再解決回去。
 
-先把 Gb7 歪掉一點變成 G6，再解決回去。
-
-C   | c, g, | e c'
----
-G6  | g, b, d | e b
----
-Gb7 | gb, bb, db | e bb
----
-F   | f, c | c a
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c2. g:6 ges:7 f
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <e c'>2. <e b'> <e bes'> <c a'>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c g'>2. <g' b d> <ges bes des> <f c'>
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{目標和弦 Am/E}
 
-先在前面放一個減七和弦。
+先在前面放一個減七和弦，然後把這個減七和弦的其中三個音寫歪掉半音。
 
-然後把這個減七和弦的其中三個音寫歪掉半音。
-
-Bbmaj7(#5) | bb,, a, | d f#
----
-G#dim7/B   | bN,, g#, | d fN
----
-Am/E       | e,, e, | c e g
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj7 }
+    \chordmode {
+      bes2.:maj7.5+ gis:dim7/b a:m/e
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <d fis>2. <d f> <a c e>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <bes a'>2. <b gis'> <e, e'>
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{目標和弦 Am}
 
-先寫個屬七和弦。
+先寫個屬七和弦，更前面用恆定結構。
 
-更前面用恆定結構。
-
-0
-G#m | g#,, d#, | b, d#
-Gm  | gN,, dN, | bb, dN
----
-F#m | f#,, c#, | a, c#
-Fm  | fN,, cN, | ab, cN
-E7  | e,, e, | bN, d g#
----
-Am  | a,, e, | c aN
-|
-|
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      \skip4 gis:m g:m fis:m f:m e:7 a2.:m
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <<
+          {\skip4 r2 r4 r gis' a2.}
+          \\
+          {r4 <b, dis> <bes d> <a cis> <aes c> <b d> c2.}
+        >>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 <gis dis'> <g d'> <fis cis'> <f c'> <e e'> <a e'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
 最高音再疊一個相反方向的半音階。
 
-0
-G#m(b5)  | g#,, d#, | b, d# e
-Gm7      | gN,, dN, | bb, dN f
----
-F#m      | f#,, c#, | a, c# f#
-Fm(add9) | fN,, cN, | ab, cN g
-E7       | e,, e, | bN, d g#
----
-Am       | a,, e, | c aN
-|
-|
-===
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      \skip4 gis:m5.6- g:m fis:m f:m9^7 e:7 a2.:m
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        r4
+        <<
+          {e4 f fis g gis a2.}
+          \\
+          {<b, dis>4 <bes d> <a cis> <aes c> <b d> c2.}
+        >>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        r4 <gis dis'> <g d'> <fis cis'> <f c'> <e e'> <a e'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
-  \subsection{Bb/D 接到 Am/E}
+  \subsection{B$\flat$/D 接到 Am/E}
 
-設定最高音 E 當作目標。從前十一個半拍開始，半音階爬上去。
+設定最高音 E 當作目標，從前十一個半拍開始，半音階爬上去。再在下方加上有點難解釋的酷炫的東西。
 
-再在下方加上有點難解釋的酷炫的東西。
-
-時間：8:28
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      bes2./d \skip2. a:m/e
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <bes d f>2.~ <bes d f> <a c e>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <<
+          {r8 f fis[ g] gis[ a] bes[ b] c[ cis] d[ dis]}
+          \\
+          {<d,, bes'>4 bes' e f2.}
+          \\
+          \\
+          {\skip2. \skip4 g4 gis}
+        >>
+        <e, e'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{F 接到 C/E}
 
-在中間插入 Fm。
+在中間插入 Fm。在流行音樂中也可以用。
 
-F   | f, | c a
----
-Fm  | f, | c ab
----
-C/E | e, | c g
-===
-
-在流行音樂中也可以用。
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      f2. f:m c/e
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <c a'>2. <c aes'> <c g'>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        f2. f e
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{Am 在六拍後接到 F}
 
-設定最高音 A 當作目標。從低十個半音開始寫一串半音按過去。
+設定最高音 A 當作目標。從低十個半音開始寫一串半音階過去。
 
-最後四個音疊成八度。
+因為高音的時候不夠厚，最後四個音疊成八度。
 
 下方用恆定結構，跟剛剛的半音階反方向，連續寫五個屬七和弦。
 
-時間：9:24
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      a4:m aes8:7.9+ aes:7 g:7.11+ g:7 c:7.9+ c:7 b:7.5- b:7 bes4:13 f2.
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \accidentalStyle modern-voice
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <c a'>4
+        <<
+          {b'8[ c] cis[ d] dis[ e] <eis eis,>[ <fis fis,>] <g g,>[ <gis gis,>]}
+          \\
+          {fis,4 <f b> <e bes'> dis' d}
+        >>
+        <a c a'>2.
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \accidentalStyle modern
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a e'>4 <aes' ees'> <g d'> <c, g' c> <b a' dis> <bes f' aes d>
+        <f c' a'>2.
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
   \subsection{七個和弦的和聲進行}
 
-D B0 Am/E C/E B7/E E7(b9) Am
+疊上四個音四個音一組半音往下走的單旋律。
 
-四個音四個音一組半音往下走的單旋律。
-
-時間：10:05
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      d2. b:m7.5- a:m/e c/e b:7/e e:7.9- a:m
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \accidentalStyle modern-voice
+        \time 3/4
+        \override Staff.TimeSignature #'stencil = ##f
+        <<
+          {
+            <d fis d'>2. <d f d'> <c e c'> <c e c'> <a dis b'> <gis d' b'>
+            <a a'>
+          }
+          \\
+          {
+            bes'4. a8 gis g a4. gis8 g f
+            gis4. g8 fis f g4. fis8 f e
+            fis4. f8 e dis f4. e8 ees d c2.
+          }
+        >>
+        \bar "||"
+      }
+    }
+    \new Staff {
+      \relative c {
+        \accidentalStyle modern
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <d, a' fis'>2. <b' f' a> <e, e' a> <e g'> <e fis'> <e e'> <a, a'>
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
 
 \end{document}
 
