@@ -38,6 +38,7 @@
 \maketitle
 
 \section{為什麼流行歌聽起來都這麼像？}
+\label{sec:ep1}
 
 相同的下行低音的和聲進行。
 
@@ -2214,17 +2215,596 @@ chExceptions = #( append
 練習時可以左手按和弦，右手切換到相對應的音階。可以拿現成曲子的和弦表，也可以練不同順序的音階。
 
 \section{終止六四和弦！（The Cadential 64 Chord）}
+\label{sec:ep67}
+
+六四和弦：三和弦的第二轉位。通常都在很特定的地方、以很特定的用法出現。
+
+\ruby{終止六四和弦}{cadential six-four chord}：出現在五級到一級的終止式之前，的一級六四和弦。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c2:/g g:7 c1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        g''4 f e d c1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c' {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e>2 <g b f'>2 <c, e g>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+這裡 C/G 有快要「快要結束」的感覺。
+
+寫作時尋找句尾處的 I - V - I 進行，把前面那個 I 換成 I$_{\substack{6 \\ 4}}$。
+
 \section{經過六四和弦！（Passing Six four Chord）}
+
+經過六四和弦：最低音剛好是另外兩個和弦中間的經過音，的六四和弦。
+
+\subsection{在一級和弦跟一級和弦的第一轉位之間，放置的五級六四和弦}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c2 g:/d c1:/e}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <e g c>4 <e g c> <d g b> <d g b>
+        \repeat unfold 4 {<c g' c>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c c'>2 <d d'>2 <e e'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c2:/e g:/d c1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c g' c>4 <c g' c> <d g b> <d g b>
+        \repeat unfold 4 {<e g c>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <e e'>2 <d d'>2 <c c'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+\subsection{在四級和弦跟四級和弦的第一轉位之間，放置的一級六四和弦}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {f2 c:/g f1:/a}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a c f>4 <a c f> <g c e> <g c e>
+        \repeat unfold 4 {<f c' f>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c,, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <f f'>2 <g g'>2 <a a'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {f2:/a c:/g f1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <f c' f>4 <f c' f> <g c e> <g c e>
+        \repeat unfold 4 {<a c f>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a a'>2 <g g'>2 <f f'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+經過六四和弦重點就是它的低音剛好就是前後兩個和弦的經過音，前後兩個和弦通常會是同一個和弦的不同轉位。前後也可以不是同一個和弦，如：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {a2:m c:/g f1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a c e>4 <a c e> <g c e> <g c e>
+        \repeat unfold 4 {<a c f>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c, {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <a a'>2 <g g'>2 <f f'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+常用的下行低音的和聲進行\episodenumref{sec:ep1}中的 Am, Em/G, F 可以換成經過六四和弦： Am, C/G, F。
+
 \section{持續低音六四和弦！（Pedal Six-four Chord）}
+
+\ruby{持續低音六四和弦}{pedal six-four chord}：和前後的和弦低音相同的六四和弦，即在兩個一級和弦之間，放置的四級六四和弦（古典音樂）。
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c2 f:/c c1 c2 f c1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e>4 <g c e> <a c f> <a c f>
+        \repeat unfold 4 {<g c e>}
+        \bar "||"
+        <g c e>4 <g c e> <a c f> <a c f>
+        \repeat unfold 4 {<g c e>}
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c2 c2 c1 c2 f2 c1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+用持續低音六四和弦而不是 C, F, C，會聽上去更靜態、穩定一點。在小調中也可以使用。
+
+在現代音樂，持續低音六四和弦幾乎可以出現在任何一個和弦上面。
+
 \section{好和弦分析林宥嘉的《兜圈》，以及 4 個讓下行低音更有新鮮感的技巧！}
+
+流行音樂喜歡使用同樣的下行低音的和聲進行\episodenumref{sec:ep1}來使音樂聽起來有熟悉親切感。熟悉感和新鮮感也可以兼顧，有以下技巧：
+
+\subsection{把原有和弦進行，替換成同一家族更複雜的和弦}
+
+D 大調的和弦進行：
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {d2 a:/cis b:m d:/a g d:/fis e:m a}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        \chordmode {d4 d}
+        <cis e a> <cis e a>
+        \chordmode {b,:m b,:m d:/a d:/a}
+        <b d g> <b d g>
+        <a d fis> <a d fis>
+        <b e g> <b e g>
+        <cis e a> <cis e a>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        d2 cis b a g fis e a
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+例如把大三和弦換成加二和弦和大九和弦，小三和弦換成小七和弦。
+
+\bigskip
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {d2:maj9 a:5.2/cis b:m7 d:5.2/a g:maj9 d:5.2/fis g:5.2 a:11}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        <cis e fis a>4 <cis e fis a>
+        <b cis e a> <b cis e a>
+        <a b d fis> <a b d fis>
+        \chordmode {d:5.2/a d:5.2/a}
+        <a b d fis> <a b d fis>
+        <a d e a> <a d e a>
+        <a b d g> <a b d g>
+        <b d g a> <b d g a>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        d2 cis b a g fis g a
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+\subsection{用 2-5-1，或是類似的和聲進行作裝飾}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      d2:maj9 cis4:m7.5- fis:7.9+ b2:m7 a4:m7 d:11
+      g2:maj9 fis4:m7 b:m7 g2:5.2 a:11
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        <cis e fis a>4 <cis e fis a>
+        <b e g> <ais d e a!>
+        <a b d fis> <a b d fis>
+        <g c e> <g c e>
+        <a b d fis> <a b d fis>
+        <a cis e a> <a b d fis>
+        <a b d g> <a b d g>
+        <b d g a> <b d g a>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \key d \major
+        \override Staff.TimeSignature #'stencil = ##f
+        d2 cis4 fis, b2 a4 d g,2 fis4 b g2 a
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+C$\sharp$ø, F$\sharp$\super{7($\sharp$9)}, Bm\super{7}：B 小調上的 2-5-1 進行；
+Am\super{7}, D\super{11}, G\super{maj9}：G 大調上的 2-5-1 進行；
+
+F$\sharp$m\super{7}, Bm\super{7}：三級和六級，有類似效果。
+
+\subsection{用高半音的和弦，接到目標和弦}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  % workaround lilypond bug, can't have 9+ and 9- together
+  % should be dis:7.9+.9- <dis fisis ais cis' e' eisis'>
+  <dis fisis ais cis' e'>1-\markup { \super {"7(" \sharp 9 \flat 9 ")"} }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \set chordNameExceptions = #chExceptions
+    \chordmode {
+      b2:maj9 ais4:m7.5- dis:7.9+.9- gis4:m9 g4:m9 fis:m9 b:sus4.13
+      e2:maj9 dis4:m7 gis:m7 e2:sus2 fis
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \key b \major
+        \override Staff.TimeSignature #'stencil = ##f
+        <ais cis dis fis>4 <ais cis dis fis>
+        <gis cis e gis> <g cis e fis>
+        <fis ais b dis> <f a bes d>
+        <gis a cis e> <a cis e gis! b>
+        <gis b dis fis!> <gis b dis fis>
+        <cis fis ais> <b dis fis b>
+        <b e fis b> <b e fis b>
+        <ais cis fis ais>8 <b b'> <cis cis'> <gis' gis'>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \key b \major
+        \override Staff.TimeSignature #'stencil = ##f
+        b2 ais4 dis
+        gis,4 g fis b
+        e,2 dis4 gis
+        e2 fis
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+\subsection{更改節奏}
+
+\begin{lilypond}[quote,staffsize=16]
+chExceptionMusic = {
+  % workaround lilypond bug, can't have 9+ and 9- together
+  % should be dis:7.9+.9- <dis fisis ais cis' e' eisis'>
+  <dis fisis ais cis' e'>1-\markup { \super {"7(" \sharp 9 \flat 9 ")"} }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \key b \major
+      \override Staff.TimeSignature #'stencil = ##f
+      \partial 8.
+      fis16 fis e
+      dis8 fis b dis e16 dis cis b dis8. cis16
+      b8 ais16 b cis b ais gis a8 a b b
+      gis4 gis16 ais! b8 dis16 e dis cis b4
+      e,16 fis gis8 gis16 ais16 b8 ais16 ais ais b cis4
+    }
+  }
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set chordNameExceptions = #chExceptions
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      \partial 8. \skip8.
+      b2:maj9 ais4:m7.5- dis:7.9+.9- gis4:m9 g4:m9 fis:m9 b:sus4.13
+      e2:maj9 dis4:m7 gis:m7 e2:sus2 fis
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \key b \major
+        \override Staff.TimeSignature #'stencil = ##f
+        \partial 8. \skip8.
+        <ais cis dis fis>4 r8
+        <gis cis e gis>8~ <gis cis e gis>4 <g cis e fis>16 <g cis e fis> r8
+        r8 <fis ais b dis> <f a bes d> r
+        r8 <gis a cis e> r16 <a cis e gis! b>8.
+        <gis b dis fis!>4 <gis b dis fis>
+        <cis fis ais> <b dis fis b>
+        <b e fis b> <b e fis b>
+        <ais cis fis ais>8 <b b'> <cis cis'> <gis' gis'>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \key b \major
+        \override Staff.TimeSignature #'stencil = ##f
+        \partial 8. \skip8.
+        b4 r8 ais8~ ais4 dis16 dis r8
+        r8 gis, g r r fis r16 b8.
+        e,2 dis4 gis
+        e2 fis
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{用很簡便的思考方式，讓屬和弦聽起來更酷炫}
+
+\episoderef{sec:ep42}中變化音的思考方法：拿一個省略五度音的屬七和弦， 在上面疊上另一個三和弦。可以用這個方法容易地想到裝飾用的快速音群，例如在 C\super{7} 上彈琶音接到 F，可以用 D 的分解和弦。
+
+\medskip
+
+\begin{tabular}{c c c c c c}
+&
+C\super{13($\sharp$11)} &
+C\super{7($\sharp$9)} &
+C\super{7}$\big(\substack{\text{\sharp11}\\\text{\flat9}}\big)$ &
+C\super{7}$\big(\substack{\text{\flat13}\\\text{\sharp9}}\big)$ &
+C\super{13($\flat$9)}
+\\
+= C\super{7} + &
+D &
+E$\flat$ &
+F$\sharp$ &
+A$\flat$ &
+A
+\end{tabular}
+
 \section{「卡農」和聲進行，以及為什麼很多流行歌的旋律都很像}
 
 卡農是一種作曲技巧，只是 \textit{Pachelbel's Canon} 這首最有名。
 
 卡農的和弦進行：
 
-\begin{lilypond}[quote,fragment,staffsize=16]
+\begin{lilypond}[quote,staffsize=16]
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
@@ -2252,11 +2832,17 @@ chExceptions = #( append
     }
   >>
 >>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
 \end{lilypond}
 
 華語流行歌的和弦進行：
 
-\begin{lilypond}[quote,fragment,staffsize=16]
+\begin{lilypond}[quote,staffsize=16]
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
@@ -2284,11 +2870,17 @@ chExceptions = #( append
     }
   >>
 >>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
 \end{lilypond}
 
 若把 Pachelbel 卡農高音旋律和現代下行低音旋律放一起：
 
-\begin{lilypond}[quote,fragment,staffsize=16]
+\begin{lilypond}[quote,staffsize=16]
 <<
   \new ChordNames {
     \override ChordNames.ChordName.font-family = #'roman
@@ -2324,6 +2916,12 @@ chExceptions = #( append
     }
   >>
 >>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
 \end{lilypond}
 
 這邊高音和低音的旋律走向都是協和的平行十度。
@@ -2331,10 +2929,125 @@ chExceptions = #( append
 流行歌的旋律很像，除了使用同樣的下行低音和弦進行之外，還因為有意無意就寫成了有十度關係的旋律。
 
 \section{什麼是「移調樂器」？}
+
+\ruby{移調樂器}{Transposing Instrument}：記譜的音高跟實際上的音高不一樣的樂器。原因有：
+
+\begin{enumerate}
+\item 有些樂器的聲音就是很高（或很低），如\ruby{高音鐵琴}{Glockenspiel}、\ruby{低音提琴}{Double Bass}。
+\item 管樂器中的各種「家族成員」，其指法相同但音高不同，如\ruby{長笛}{Concert Flute}和\ruby{中音長笛}{Alto Flute}、\ruby{低音長笛}{Bass Flute}。
+\end{enumerate}
+
 \section{皮卡第三度！如何出乎意料地使用大和弦？（Picardy Third）}
+
+\ruby{皮卡第\,三度}{Picardy Third}：在小調中用大和弦終止。如用 C 代替 Cm。
+
 \section{半音階下行的和聲進行！}
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      c1 g/b g:m/bes f:/a f:m/aes c/g d:7/fis g
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e> <g d' g> <bes d g> <a c f>
+        <aes c f> <g c e> <a c d> <g b d>
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        c1 b bes a aes g fis g
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+\begin{itemize}
+\item Gm/B$\flat$：B$\flat$ 陽光一點，B$\flat$\super{dim} 或 B$\flat$\super{dim7} 會憂鬱一點
+\item Fm/A$\flat$：Dø/A$\flat$ 或 A$\flat$\super{dim7} 更糾結一點
+\item C/G：\episoderef{sec:ep67}
+\item D\super{7}/F$\sharp$：\episoderef{sec:ep28} \enspace 也可以 F$\sharp$ø 或 F$\sharp$\super{dim7}
+\item G：半終止，方便循環回 C 和弦
+\item 小調只要把 C、C/G 改成 Cm、Cm/G
+\end{itemize}
+
 \section{用屬和弦來結尾！}
+
+C 和弦結尾可以換成：C\super{maj9}、C\super{6}、C\super{9}、C\super{13}、C\super{13($\sharp$11)}。
+
 \section{十分鐘之內，一次搞懂「單拍子」和「複拍子」！}
+
+\ruby{拍}{Beat}：有固定間隔的時間單位。常用的有\ruby{二拍子}{Duple Meter}、\ruby{三拍子}{Triple Meter}、\ruby{四拍子}{Quadruple Meter}。\ruby{強拍}{Downbeat}：比較大聲的拍子，預設是每一組的第一拍。
+
+\ruby{（簡）單拍子}{Simple Meter}：简单的拍子。\ruby{複（合）拍子}{Compound Meter}：每一拍都再被細分的三等分的拍子。
+
+\medskip
+
+拍號：
+{\small\bfseries \stackanchor[1pt]{3}{4}} \hspace{0.25em}
+\stackanchor[2pt]{每一小節有3拍}{四分音符代表一拍} \enspace
+唸作「三四拍」。
+
+\bigskip
+
+簡單的二、三、四拍：
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c'' {
+    \clef "treble"
+    \numericTimeSignature
+    \time 2/4
+    a4^"Simple Duple" a
+    \time 3/4
+    a^"Simple Triple" a a
+    \time 4/4
+    a^"Simple Quadruple" a a a
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+複合的二、三、四拍：
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c'' {
+    \clef "treble"
+    \numericTimeSignature
+    \time 6/8
+    a8[^"Compound Duple" a a] a[ a a]
+    \time 9/8
+    a8[^"Compound Triple" a a] \repeat unfold 2 {a8[ a a]}
+    \time 12/8
+    a8[^"Compound Quadruple" a a] \repeat unfold 3 {a8[ a a]}
+    \bar "|."
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{不正常的拍子？}
 \section{強拍、弱拍和「多層級」的拍子}
 \section{切分節奏！（Syncopation）}
