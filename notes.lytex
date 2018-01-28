@@ -3001,7 +3001,7 @@ C 和弦結尾可以換成：C\super{maj9}、C\super{6}、C\super{9}、C\super{1
 \medskip
 
 拍號：
-{\small\bfseries \stackanchor[1pt]{3}{4}} \hspace{0.25em}
+\lilyTimeSignature{3}{4} \hspace{0.25em}
 \stackanchor[2pt]{每一小節有3拍}{四分音符代表一拍} \enspace
 唸作「三四拍」。
 
@@ -3049,7 +3049,13 @@ C 和弦結尾可以換成：C\super{maj9}、C\super{6}、C\super{9}、C\super{1
 \end{lilypond}
 
 \section{不正常的拍子？}
+
+選擇一些不能被其他數字除盡的拍子：5, 7, 11, 13 等質數。
+
 \section{強拍、弱拍和「多層級」的拍子}
+
+強拍和弱拍其實是相對的，拍子的分組也可以發生在不只一個層級上。把數拍子的層級提高到小節層面，以幾小節為一組可以呈現出不同強弱的拍子。
+
 \section{切分節奏！（Syncopation）}
 \section{10 小時的好和弦背景音樂！好和弦陪你一整天～（NiceChord BGM 10hr）}
 \section{如何把一個旋律編成鋼琴獨奏曲？}
@@ -3657,6 +3663,128 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
   ragged-right = ##f
 }
 \end{lilypond}
+
+\section{什麼是「畫素」，以及聲音檔案裡面到底裝了什麼？}
+\section{好和弦的旁白聲音後製流程！}
+\section{挑戰 MP3 檔案的壓縮極限！}
+\section{想寫得像莫札特嗎？這樣寫就對了！}
+
+莫札特最愛的結尾寫法：「的～～冷」
+
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {
+      g1:7 c g:7 g2:7/c c
+    }
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \time 4/4
+        \override Staff.TimeSignature #'stencil = ##f
+        g''4 f e d <e, c'>1
+        \bar "||"
+        g'4 f e d <f, b d>2(^\markup{\halign #1.4 \italic or "Bdim/C"} <e c'>2)
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g' b f'>1 <c, c'> \bar "||" <g' b f'>1 <c, c'> \bar "|."
+      }
+    }
+  >>
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+\begin{enumerate}
+\item 把「的」彈得大聲一點點
+\item 把「冷」彈得小聲一點點
+\item 「的」和「冷」中間不要斷掉
+\end{enumerate}
+
+\section{來聊聊 PC Speaker！}
+\section{好和弦分析五月天的《成名在望》，今天的影片改成上傳在相信音樂的 YouTube 頻道喔！}
+\section{來聽人類歷史上的第一個錄音！（大包裝 7 登場）}
+\section{非功能和聲（Non-functional Harmony）}
+\section{非功能和聲：只用兩個和弦製造各種感覺！}
+\section{低音程限制：為什麼你不該使用電鋼琴上的移調鍵？}
+
+\ruby{低音程限制}{Low Interval Limit}：「不要在低音的地方，寫兩個音高很近的音」
+
+在每一種音程可以寫的不會骯髒的最低區域：
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \set Score.barNumberVisibility = ##f
+    \override Staff.TimeSignature #'stencil = ##f
+    s1^\markup { \halign #-0.5 "unison (unlimited)" } \bar "||"
+    <e f>1^"minor 2nd" \bar "||"
+    <ees f>1^"major 2nd" \bar "||"
+    <c ees>1^"minor 3rd" \bar "||"
+    <bes d>1^"major 3rd" \bar "||" | \break
+    <bes ees>1^\markup { \halign #-0.5 "prefect 4th"} \bar "||"
+    <bes e>1^\markup { \halign #-0.3 "augmented 4th"} \bar ""
+    <bes fes'>1^\markup { \halign #-0.9 "diminished 5th"} \bar "||"
+    <bes, f'>1^\markup { \halign #-1.1 "prefect 5th"} \bar "||"
+    <g' ees'>1^"minor 6th" \bar "||"
+    <f d'>1^"major 6th" \bar "||" | \break
+    <fis ees'>1^"diminished 7th" \bar "||"
+    <f ees'>1^"minor 7th" \bar "||"
+    <f e'>1^"major 7th" \bar "||"
+    s1^"octave (unlimited)" \bar "||" | \break
+    <e f'>1^"minor 9th" \bar "||"
+    <ees f'>1^"major 9th" \bar "||"
+    <c ees'>1^"minor 10th" \bar "||"
+    <bes d'>1^"major 10th" \bar "||"
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+
+\section{為什麼休止符很重要？}
+\section{沒有靈感怎麼辦：「特徵清單」抄襲法}
+\section{一起來玩鍵盤鼓！}
+\section{爵士鼓記譜，和你的第一個鍵盤鼓節奏}
+\section{鍵盤鼓：如何「董資董資」？}
+\section{鍵盤鼓：Bossa Nova、Swing Jazz 和五種好用的過門！}
+\section{取樣機：如何只用一個寶特瓶做一首曲子？}
+\section{動手做 PC Speaker 音樂！（DOSBox + QuickBASIC）}
+\section{五線譜：一次搞懂所有你該知道的、基本的事情。}
+\section{來聊聊 1-6-2-5 和弦進行！}
+\section{永無止境往下掉的聲音！}
+\section{如何讓聲音有「立體感」？}
+\section{音高校正軟體：為什麼唱片裡的歌手音都那麼準？}
+
+1997 年，Andy Hildebrand 發明了歷史上第一個音高校正軟體 Auto-Tune。現在幾乎所有的音樂製作軟體都有音高校正功能，幾乎所有的專輯多少也有音高校正軟體的修正。音高校正軟體例如有 Melodyne、Reason 和 Logic Pro。現代的音高校正軟體也有即時音高校正功能。
+
+\section{鋼琴下面那三個踏板到底是做什麼用的？}
+
+\begin{tabular}{c c c c}
+\hline
+& 左 & 中 & 右 \\
+& \ruby{柔音踏板}{soft pedal}
+& \ruby{持續音踏板}{sostenuto pedal}（\ruby{練習踏板}{practice pedal}）
+& \ruby{制音器踏板}{damper pedal} \\ \hline
+平台 & 琴槌右移 & 卡住特定制音器 & \multirow{2}{*}{拿起所有制音器} \\
+直立 & 琴槌拉近 & 用布擋住琴槌 & \\ \hline
+\end{tabular}
 
 \end{document}
 
