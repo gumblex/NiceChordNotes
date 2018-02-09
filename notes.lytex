@@ -14,6 +14,7 @@
 \usepackage{multirow}
 \usepackage{xfrac}
 \usepackage{ruby}
+\usepackage{tikz}
 \setmainfont{TeX Gyre Schola}
 \setCJKmainfont{Source Han Serif TC}
 \ctexset{
@@ -3057,8 +3058,562 @@ C 和弦結尾可以換成：C\super{maj9}、C\super{6}、C\super{9}、C\super{1
 強拍和弱拍其實是相對的，拍子的分組也可以發生在不只一個層級上。把數拍子的層級提高到小節層面，以幾小節為一組可以呈現出不同強弱的拍子。
 
 \section{切分節奏！（Syncopation）}
-\section{10 小時的好和弦背景音樂！好和弦陪你一整天～（NiceChord BGM 10hr）}
+
+\ruby{切分}{Syncopation}：用各種方式，對正常強弱拍規則的打擾。例如：
+
+\begin{itemize}
+\item 把一個強拍拿掉
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \numericTimeSignature
+    \time 3/4
+    c4 \chordmode {c/g c/g}
+    g4 \chordmode {c/g c/g}
+    r4 \chordmode {c/g c/g}
+    g4 \chordmode {c/g c/g}
+    \bar ""
+  }
+}
+\end{lilypond}
+
+\item 在弱拍寫比強拍還長的音
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \chordmode {c4/g c2/g c4/g c/g c2/g c4/g}
+      \bar ""
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      c4 c2 c4 c4 c2 c4
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/64)
+  }
+}
+\end{lilypond}
+
+\item 改變換和弦的時機
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      a2:m7 g/b c f:maj9 ees:maj13^9
+    }
+  }
+  \new GrandStaff <<
+    \new Staff {
+      \relative c' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e g>4 <g c e g>8 <g d' g>~ <g d' g>4 <g d' g>8 <g c e g>~
+        <g c e g>4 <g c e g>8 <a c e g>~ <a c e g>4 <a c e g>8 <g c d g>~
+        <g c d g>1
+        \bar "|."
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        a4. b8~ b4. c8~ c4. f,8~ f4. ees8~ ees1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+
+\item 把一些音符提早
+
+\begin{lilypond}[quote,staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      f8. e4:7 a4:m g8:m c8.:7 f8. e4:7 a16:m
+    }
+  }
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      c8 e16 d~ d f8 e16~ e g8 f16~ f d8.
+      c8 d16 e~ e d8 c16~ c2
+      \bar "|."
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+  }
+}
+\end{lilypond}
+
+\end{itemize}
+
+% \section{10 小時的好和弦背景音樂！好和弦陪你一整天～（NiceChord BGM 10hr）}
+
 \section{如何把一個旋律編成鋼琴獨奏曲？}
+
+\ruby{織度}{Texture}：旋律、節奏與和聲的材料在曲子裡面組合的方式，決定了一首曲子整體的聲音特質。
+
+\pagebreak
+
+單旋律
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      r1 r r r
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+疊八度
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <f f'>2 <g g'>4 <a a'> <bes bes'>1 <c c'>4 <bes bes'> <a a'> <g g'> <f f'>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <f f'>2 <g g'>4 <a a'> <bes bes'>1 <c c'>4 <bes bes'> <a a'> <g g'> <f f'>1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+右手旋律，左手和弦
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <f a c>2 <a c f> <bes d f>1 <g bes d>2 <c, e g bes> <f a c>1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+把和弦音放在高音的地方
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <a c f>2 <c f g>4 a' <d, f bes>1 <d f c'>4 bes' <bes, e a> g' <a, c f>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 a bes1 g2 c, f1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+把和弦音分散到兩隻手
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <a f'>2 <c g'>4 a' <d, bes'>1 <d c'>4 bes' <bes, a'> g' <a, f'>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <f c'>2 <a f'> <bes f'>1 <g f' bes>2 <c, bes' e> <f c'>1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+阿貝爾替低音伴奏
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f8 c' a c a f' c f bes, f' d f bes, f' d f
+      g, d' bes d c, c' bes c f, c' a c f,2
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+更現代、流行一點
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f8 c' a' c, a f' c' f, bes, f' bes c d c bes f g, f' bes d c, e bes' c
+      <f,, c' a'>1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+伴奏比主旋律高
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f8 a c a f a c a f bes d bes f bes d bes g c e c g c e c <a f'>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      \repeat unfold 4 {<a c>8 f}
+      \repeat unfold 4 {<bes d>8 f}
+      \repeat unfold 4 {<c' e>8 g}
+      <a c f>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+把主旋律放中間
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <<
+        {f2 g4 a bes1 c4 bes a g}
+        \\
+        {r8 c, c' c, r c c' c, r d d' d, f d d' d, r d d' d, r e e' e,}
+      >>
+      <f a f'>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f1 bes g2 c f,1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <<
+        {f2 g4 a bes1 c4 bes a g}
+        \\
+        {r8 c, c' c, r c c' c, r d d' d, f d d' d, r d d' d, r e e' e,}
+      >>
+      <f a f'>1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f8 c' a'4 \clef "treble" c'' \clef "bass" c,,,
+      bes8 f' bes4 \clef "treble" d''2
+      \clef "bass" g,,,,8 f' bes4 c,8 bes'4. <f, c' a'>1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+在左手寫另一個旋律
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f2 g4 a bes1 c4 bes a g f1
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      r4 c e ees d d e f a8 g f d e d c bes a1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+把兩個旋律放右手，左手彈和弦低音
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <<
+        {f2 g4 a bes1 c4 bes a g f1}
+        \\
+        {r4 c e ees d d e f a8 g f d e d c bes a1}
+      >>
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f1 bes g2 c f,1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
+左手再加上分解和弦
+
+\begin{lilypond}[quote,staffsize=16]
+\new GrandStaff <<
+  \accidentalStyle piano
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      <<
+        {f2 g4 a bes1 c4 bes a g f1}
+        \\
+        {r4 c e ees d d e f a8 g f d e d c bes a1}
+      >>
+      \bar "||"
+    }
+  }
+  \new Staff {
+    \relative c, {
+      \clef "bass"
+      \override Staff.TimeSignature #'stencil = ##f
+      \key f \major
+      f8 c' a' c,~ c c a' c, bes f' bes f c' f, d' f, f, f' bes4 c,8 bes'4. f,1
+    }
+  }
+>>
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{如何寫出與眾不同的和聲進行？}
 \section{什麼是「增六和弦」？（Augmented Sixth Chords）}
 \section{為什麼厲害的人彈同一個和弦，就是比你好聽一點點？}
@@ -3785,6 +4340,22 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
 平台 & 琴槌右移 & 卡住特定制音器 & \multirow{2}{*}{拿起所有制音器} \\
 直立 & 琴槌拉近 & 用布擋住琴槌 & \\ \hline
 \end{tabular}
+
+\section{鋼琴的右踏板應該踩多深？}
+
+鋼琴的右踏板不是「開關」。制音器的前端是羊毛做的，可以通過控制踏板來控制制音器壓的鬆緊程度。
+
+\begin{tikzpicture}[x=1.1cm,y=1.1cm]
+\definecolor{red1}{HTML}{F62510}
+\draw[->,thick] (-0.65,0) -- (6,0) node[right] {右踏板深度}; 
+\draw[->,thick] (0,-0.7) -- (0,4.79) node[above] {效果};
+\draw[red1,thick] (0,0) -- (1,0) .. controls (1,0) and (1.06,1.61) .. (2.17,3.13) .. controls (2.89,4.11) and (3.76,4.70) .. (3.76,4.70) -- (5.12,4.70);
+\draw[gray,dashed] (3.76,-0.12) -- (3.76,4.80);
+\draw[gray,dashed] (5.05,-0.12) -- (5.05,4.80);
+\node[align=center,anchor=north,node font=\small] at (1,-0.2) {制音器\\ 開始拿起};
+\node[align=center,anchor=north,node font=\small] at (3.76,-0.2) {制音器\\ 完全離開};
+\node[align=center,anchor=north,node font=\small] at (5.05,-0.2) {踏板底部};
+\end{tikzpicture}
 
 \end{document}
 

@@ -23,7 +23,7 @@ build/notes_cn.pdf: build/notes_cn.tex
 build/notes_cn.tex: build/notes_cn.lytex
 	lilypond-book --pdf --format=latex --output=build build/notes_cn.lytex
 
-build/notes_cn.lytex: notes.lytex
+build/notes_cn.lytex: notes.lytex build/
 	opencc -c tw2sp.json -i notes.lytex | \
 	sed 's/Source Han Serif TC/Source Han Serif SC/' > build/notes_cn.lytex
 
