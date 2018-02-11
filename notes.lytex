@@ -4286,15 +4286,32 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
     \clef "bass"
     \set Score.barNumberVisibility = ##f
     \override Staff.TimeSignature #'stencil = ##f
-    s1^\markup { \halign #-0.5 "unison (unlimited)" } \bar "||"
+    \textLengthOn
+    \override TextScript.staff-padding = #1
+    s1^"unison (unlimited)" \bar "||"
     <e f>1^"minor 2nd" \bar "||"
     <ees f>1^"major 2nd" \bar "||"
     <c ees>1^"minor 3rd" \bar "||"
-    <bes d>1^"major 3rd" \bar "||" | \break
-    <bes ees>1^\markup { \halign #-0.5 "prefect 4th"} \bar "||"
-    <bes e>1^\markup { \halign #-0.3 "augmented 4th"} \bar ""
-    <bes fes'>1^\markup { \halign #-0.9 "diminished 5th"} \bar "||"
-    <bes, f'>1^\markup { \halign #-1.1 "prefect 5th"} \bar "||"
+    <bes d>1^"major 3rd" \bar "||"
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \set Score.barNumberVisibility = ##f
+    \override Staff.TimeSignature #'stencil = ##f
+    \textLengthOn
+    \override TextScript.staff-padding = #1
+    <bes ees>1^"prefect 4th" \bar "||"
+    <bes e>1^"augmented 4th" \bar ""
+    \newSpacingSection
+    <bes fes'>1^"diminished 5th" \bar "||"
+    <bes, f'>1^"prefect 5th" \bar "||"
     <g' ees'>1^"minor 6th" \bar "||"
     <f d'>1^"major 6th" \bar "||" | \break
     <fis ees'>1^"diminished 7th" \bar "||"
@@ -4356,6 +4373,62 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
 \node[align=center,anchor=north,node font=\small] at (3.76,-0.2) {制音器\\ 完全離開};
 \node[align=center,anchor=north,node font=\small] at (5.05,-0.2) {踏板底部};
 \end{tikzpicture}
+
+\section{彈鋼琴要怎麼「換踏板」？（提示：沒有你想的那麼簡單）}
+
+例如要把這三個和弦聲音連在一起：（灰色虛線代表和弦彈下去的時機，音符旁邊的橫線表示手實際按在鍵盤上的時間，下面的線代表右踏板的位置）
+
+\medskip
+
+\begin{tikzpicture}
+\draw[gray,dashed] (1.67,1) -- (1.67,-1.8);
+\draw[gray,dashed] (5.45,1) -- (5.45,-1.8);
+\draw[gray,dashed] (9.22,1) -- (9.22,-1.8);
+\node[inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new Staff {
+  \relative c' {
+    \clef "treble"
+    \numericTimeSignature
+    <c e g>1 <d f a> <e g b>
+  }
+}
+\layout {
+  line-width = #120
+  ragged-right = ##f
+}
+\end{lilypond}
+};
+\fill[fill=green!40,fill opacity=0.4]
+  (1.67,0.1) -- (4.22,0.1) -- (4.22,0.45) -- (1.67,0.45);
+\fill[fill=green!40,fill opacity=0.4]
+  (5.45,0.15) -- (8.00,0.15) -- (8.00,0.5) -- (5.45,0.5);
+\fill[fill=green!40,fill opacity=0.4]
+  (9.22,0.2) -- (11.77,0.2) -- (11.77,0.55) -- (9.22,0.55);
+\draw[thick] (3.01,-0.5) -- (3.20,-1) -- (5.45,-1) -- (5.72,-0.5) --
+  (6.71,-0.5) -- (6.95,-1) -- (9.22,-1) -- (9.52,-0.5);
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (3.20,-1) {踩};
+\node[anchor=south west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (5.72,-0.5) {放};
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (6.95,-1) {踩};
+\node[anchor=south west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (9.52,-0.5) {放};
+\end{tikzpicture}
+
+\medskip
+
+\begin{enumerate}
+\item 用手彈第一個和弦然後按住
+\item 手還按住的期間，踩踏板：避開彈下去瞬間的共振
+\item 確定踏板踩下，手放掉
+\item 彈第二個和弦並按住，同時開始放掉踏板
+\item 等前面那個和弦的聲音消掉：制音器把弦停住需要一定時間（可能長達1.5秒）
+\item 手依然按住，踩右踏板
+\item 手放開
+\item 彈下一個和弦，同時開始放踏板
+\end{enumerate}
 
 \end{document}
 

@@ -12,7 +12,7 @@ build/notes.pdf: build/notes.tex
 	cd build/ && xelatex notes.tex
 
 build/notes.tex: notes.lytex
-	lilypond-book --pdf --format=latex --output=build notes.lytex
+	lilypond-book --latex-program=xelatex --format=latex --output=build notes.lytex
 
 notes_cn.pdf: build/ build/notes_cn.pdf
 	cp build/notes_cn.pdf notes_cn.pdf
@@ -21,7 +21,7 @@ build/notes_cn.pdf: build/notes_cn.tex
 	cd build/ && xelatex notes_cn.tex
 
 build/notes_cn.tex: build/notes_cn.lytex
-	lilypond-book --pdf --format=latex --output=build build/notes_cn.lytex
+	lilypond-book --latex-program=xelatex --format=latex --output=build build/notes_cn.lytex
 
 build/notes_cn.lytex: notes.lytex build/
 	opencc -c tw2sp.json -i notes.lytex | \
