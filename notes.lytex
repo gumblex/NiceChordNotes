@@ -189,6 +189,7 @@ C & Dm & Em & F & G & G\textsuperscript{7} & Am & B\textsuperscript{o} \\
 \end{tabular}
 
 \section{這是什麼鬼音？（Ghost Notes）}
+\label{sec:ep6}
 
 \ruby{鬼音}{Ghost Notes}（幽靈音、悶音）：非常小聲，沒有則會大大喪失節奏感。
 
@@ -1788,6 +1789,7 @@ Dm 和 F 有中介性質\episodenumref{sec:ep4}\episodenumref{sec:ep5}。可以�
 例如用 C\super{(add2)} 和弦，就表示你把 Re 也看作 C 和弦的一部分。
 
 \section{旋律是什麼音的時候可以配 C 和弦？（提示：比你想像中的多）}
+\label{sec:ep61}
 
 以下全部都和 C 和弦有相同的根音、性質和功能（所以它們都是「C 和弦」）。
 
@@ -3615,13 +3617,400 @@ C 和弦結尾可以換成：C\super{maj9}、C\super{6}、C\super{9}、C\super{1
 \end{lilypond}
 
 \section{如何寫出與眾不同的和聲進行？}
+
+\begin{enumerate}
+\item 列出「大家都在用的、聽起來很正常的和弦進行」有哪些？
+\item 強迫自己不要使用這些和弦進行。
+\end{enumerate}
+
+例如：
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c' {
+    \clef "treble"
+    \override Staff.TimeSignature #'stencil = ##f
+    c4 c c2~ c4 c8 d e4 f g g g2~ g4 g8 f e4 d4 c1
+    \bar "||"
+  }
+}
+\end{lilypond}
+
+\begin{tabular}{m{2cm} m{10cm}}
+
+（古典） & \begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \set majorSevenSymbol = \markup { maj }
+  \chordmode {
+    c1 s g:7 s c \bar "||"
+  }
+}
+\end{lilypond} \\
+（流行） & \begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \set majorSevenSymbol = \markup { maj }
+  \chordmode {
+    c2 a:m d:m7 g:13.4^3^9 c a:m d:m7 g:13.4^3^9 c1 \bar "||"
+  }
+}
+\end{lilypond} \\
+（下行低音） & \begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \set majorSevenSymbol = \markup { maj }
+  \chordmode {
+    c2 c/b a:m7 c/g f:5.9 c/e d:m11 g:13^9 c1 \bar "||"
+  }
+}
+\end{lilypond} \\
+\end{tabular}
+
+\bigskip
+
+我怎麽知道要寫什麼？列出所有可能性\episodenumref{sec:ep61}\episodenumref{sec:ep62}，
+然後故意丟幾個不正常的進去。
+
+\medskip
+
+\begin{tabular}{l c c c c c c c}
+C: & C & Am & F & Dm\super{7} & G\super{(sus4)} & A$\flat$ & Fm \\
+& D$\flat$\super{maj7} & Cm & B$\flat$\super{maj9} & Gm\super{11} &
+F$\sharp$ø & D\super{7} & B\super{7($\flat$9)} \\
+\\
+G: & G\super{7} & C\super{(add9)} & Am\super{7} & Em\super{7} & F\super{maj9} &
+Dm\super{11} & Gm\super{7} \\
+& E\super{7($\sharp$9)} & A$\flat$\super{maj7} &
+Fm\super{9} & D$\flat$\super{maj9($\sharp$11)} & B$\flat$\super{13(sus4)} &
+E$\flat$\super{7} & D$\flat$\super{9($\sharp$11)} \\
+& B\super{7}$\big(\substack{\text{\flat13}\\\text{\flat9}}\big)$ &
+D$\sharp$\super{7($\flat$9)} & D\super{11} \\
+\end {tabular}
+
 \section{什麼是「增六和弦」？（Augmented Sixth Chords）}
+
+增六度接到八度是古典音樂中常見寫法。和弦中含有增六度的稱爲\ruby{增六和弦}{Augmented Sixth Chords}。
+
+\begin{enumerate}
+\item 增六度喜歡接到八度。
+\item 增六和弦常常會出現在 $\flat$6 音處。
+\item 增六和弦常常接到五級和弦。
+\end{enumerate}
+
+\begin{tabular}{m{4cm} m{6cm}}
+增六度 &
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      s1 g c/g
+    }
+  }
+  \new Staff {
+    \relative c' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      <<
+        {fis'2 g} \\
+        {aes,2 g}
+      >>
+      <g b d g>1
+      <g c e g>1
+      \bar "||"
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+\\
+「義大利」增六和弦 &
+\begin{lilypond}[staffsize=16]
+chExceptionMusic = {
+  <aes c' ges'>1-\markup { \super "7(omit5)" }
+  <g b>1-\markup { \super "(omit5)" }
+}
+chExceptions = #( append
+  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+  ignatzekExceptions)
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      \set chordNameExceptions = #chExceptions
+      aes1:7^5 g:5^5
+    }
+  }
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      <aes c fis>1 <g b g'>
+      \bar "||"
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+\\
+「法國」增六和弦 &
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      aes1:7.5- g:5^5
+    }
+  }
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      <aes c d fis>1 <g b d g>
+      \bar "||"
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+\\
+「德國」增六和弦 &
+\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \set majorSevenSymbol = \markup { maj }
+    \chordmode {
+      aes1:7 g c/g
+    }
+  }
+  \new Staff {
+    \relative c'' {
+      \clef "treble"
+      \override Staff.TimeSignature #'stencil = ##f
+      <aes c ees fis>1 <g b d g> <g c e g>
+      \bar "||"
+    }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}
+\end{tabular}
+
 \section{為什麼厲害的人彈同一個和弦，就是比你好聽一點點？}
+
+和弦中每個音的音量比例不同。
+
+\medskip
+
+\begin{tabular}{p{0.6cm} *{7}{p{1.18cm}}}
+\multicolumn{8}{r}{\begin{lilypond}[staffsize=16]
+<<
+  \new ChordNames {
+    \override ChordNames.ChordName.font-family = #'roman
+    \override ChordNames.ChordName.font-size = #0.85
+    \chordmode {c1}
+  }
+  \new GrandStaff <<
+    \accidentalStyle piano
+    \new Staff {
+      \relative c'' {
+        \clef "treble"
+        \override Staff.TimeSignature #'stencil = ##f
+        <g c e g>1
+        <\tweak color #(x11-color 'LightGrey) g
+          \tweak color #(x11-color 'LightGrey) c
+          \tweak color #(x11-color 'LightGrey) e g>1
+        <\tweak color #(x11-color 'LightGrey) g
+        c e \tweak color #(x11-color 'LightGrey) g>1
+        \once \override NoteHead.color = #(x11-color 'DimGrey)
+        <g c e g>1
+        \once \override NoteHead.color = #(x11-color 'LightGrey)
+        <g c e g>1
+        <\tweak color #(x11-color 'LightGrey) g
+          \tweak color #(x11-color 'LightGrey) c
+          \tweak color #(x11-color 'LightGrey) e g>1
+        <g \tweak color #(x11-color 'LightGrey) c
+          \tweak color #(x11-color 'LightGrey) e
+          \tweak color #(x11-color 'LightGrey) g>1
+        \bar ""
+      }
+    }
+    \new Staff {
+      \relative c {
+        \clef "bass"
+        \override Staff.TimeSignature #'stencil = ##f
+        <c g' e'>1
+        \once \override NoteHead.color = #(x11-color 'LightGrey)
+        <c g' e'>1
+        \once \override NoteHead.color = #(x11-color 'LightGrey)
+        <c g' e'>1
+        \once \override NoteHead.color = #(x11-color 'DimGrey)
+        <c g' e'>1
+        <c g' \tweak color #(x11-color 'LightGrey) e'>1
+        <c \tweak color #(x11-color 'LightGrey) g'
+          \tweak color #(x11-color 'LightGrey) e'>1
+        <\tweak color #(x11-color 'LightGrey) c g' e'>1
+      }
+    }
+  >>
+>>
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+  }
+}
+\end{lilypond}} \\
+& & 明亮 & 刺耳 & 寬闊 & 低沉 & 兩端 & 中間 \\
+\end{tabular}
+
+\medskip
+
+要根據具體和弦決定如何分配音量比例。
+
 \section{為什麼你可以聽到旋律？}
+
+\ruby{旋律}{Melody}：一串可以聽成同一個個體的連續的音。
+
+大腦傾向把音高相近的音當作同一條旋律。（Deutsch's scale illusion）
+
 \section{為什麼厲害的人彈同一條旋律，就是比你更有層次感？}
+
+從一串音中找到距離比較近、接起來比較順的音，把它們理解成一個層次，當作主要旋律，可以有不同的理解。基本的表達方式：
+
+\begin{enumerate}
+\item 彈比較大聲
+\item 按住不要放掉，直到下一個主旋律的音出現為止（通常會標明）
+\end{enumerate}
+
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c'' {
+    \clef "treble"
+    \time 12/8
+    \accidentalStyle modern
+    a8 \tweak color #grey c, \tweak color #grey f
+    c' \tweak color #grey c, \tweak color #grey f
+    bes \tweak color #grey c, \tweak color #grey g'
+    a \tweak color #grey c, \tweak color #grey f
+    g \tweak color #grey c, \tweak color #grey g'
+    bes \tweak color #grey c, \tweak color #grey e
+    a \tweak color #grey d, \tweak color #grey f
+    g \tweak color #grey a, \tweak color #grey cis | \break
+    f \tweak color #grey e \tweak color #grey f
+    g \tweak color #grey f \tweak color #grey g
+    a \tweak color #grey g \tweak color #grey a
+    d \tweak color #grey a c
+    bes \tweak color #grey c \tweak color #grey bes
+    a \tweak color #grey c \tweak color #grey a
+    g \tweak color #grey c \tweak color #grey g
+    bes a g a1. \bar "||"
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+
 \section{為什麼厲害的人彈同一串音，聽起來就是比你清楚？}
+\label{sec:ep87}
+
+琴鍵放掉後，音不會馬上消失，音高越低尾音越長。每個音符實際按住的時間決定了音是粒粒分明還是連在一起。
+
 \section{好和弦教你如何 Swing！}
+
+Swing（搖擺）是爵士音樂的預設演奏方式。十個秘訣：
+
+\begin{enumerate}
+\item 把一對 \twoBeamedQuavers \thinspace 當中，前面那個音彈長一點，後面那個音短一點。
+\item 把一對 \twoBeamedQuavers \thinspace 當中，前面那個音彈輕一點，後面那個音重一點。
+\item 其實一對 \twoBeamedQuavers \thinspace 當中，誰要彈比較重很不一定。
+\item 不要把音跟音之間彈得太重疊。\episodenumref{sec:ep87}
+\item 注意休止符的時機。
+\item 把裝飾音彈得比它後面的音大聲。
+\item 把一些比較快的音處理成 Ghost Notes。\episodenumref{sec:ep6}
+\item 讓強音和弱音的反差大一些。
+\item 偶爾，把整個旋律的拍點延後。
+\item Swing 不是 Tempo Rubato，它們是完全不同的兩件事情。
+\end{enumerate}
+
+常見錯誤：
+\begin{enumerate}
+\item 根本忽略 swing。
+\item 誤解 swing 成為「彈性速度」。
+\item 太重疊、太圓滑、太歌唱性。
+\item 太多跳音、太可愛。
+\item 沒有明顯輕重之分。
+\end{enumerate}
+
 \section{為什麼厲害的人，視譜可以這麼快？}
+\ruby{視譜}{Sight-reading}：在沒有事先看過譜的情況下，直接看著譜演奏音樂。
+
+厲害的人視譜快的原因是他已經理解並練習過很多種音樂中常見的排列組合和邏輯，先在譜中找到了和弦和重複的模式。
+
+困難的和弦可以拿筆在上面標出鍵盤排列的形狀。
+
+\begin{quote}
+\begin{tikzpicture}[x=0.5cm,y=0.5cm]
+\draw[thick,fill=black] (0,0.4) circle [radius=0.2];
+\draw[thick] (0.3,0) circle [radius=0.2];
+\draw[thick,fill=black] (0.8,0.4) circle [radius=0.2];
+\draw[thick,fill=black] (1.3,0.4) circle [radius=0.2];
+\draw[thick] (1.7,0) circle [radius=0.2];
+\node[inner sep=0pt,anchor=north west] at (-1.9,-0.5) {
+\begin{lilypond}[staffsize=16]
+\new Staff {
+  \relative c'' {
+    \clef "treble"
+    \override Staff.TimeSignature #'stencil = ##f
+    <ais b des ees geses>1 \bar ""
+  }
+}
+\end{lilypond}};
+\end{tikzpicture}
+\end{quote}
+
 \section{好和弦分析五月天《後來的我們》，順便一次搞懂流行歌曲式！ [重新上傳，修正版]}
 \section{如何彈出又帥氣又糾結的屬七和弦？}
 \section{上下「夾擊」目標音，讓你的旋律變得更有趣！}
