@@ -12,6 +12,7 @@
 \usepackage{tabularx}
 \usepackage{stackengine}
 \usepackage{multirow}
+\usepackage{wrapfig}
 \usepackage{xfrac}
 \usepackage{ruby}
 \usepackage{tikz}
@@ -31,6 +32,7 @@
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcommand*{\episoderef}[1]{\hyperref[{#1}]{第 \ref*{#1} 集：\nameref*{#1}}}
 \newcommand*{\episodenumref}[1]{\super{\hyperref[{#1}]{(\ref*{#1})}}}
+\newcommand{\lpipe}{\rule[-0.4ex]{0.6pt}{2.3ex}}
 \title{「好和弦」筆記}
 \date{}
 
@@ -4011,7 +4013,368 @@ Swing（搖擺）是爵士音樂的預設演奏方式。十個秘訣：
 \end{tikzpicture}
 \end{quote}
 
-\section{好和弦分析五月天《後來的我們》，順便一次搞懂流行歌曲式！ [重新上傳，修正版]}
+\section{好和弦分析五月天《後來的我們》，順便一次搞懂流行歌曲式！}
+
+現代流行音樂常用曲式：Verse-chorus Form
+
+\medskip
+
+{\centering
+\begin{tabular}{
+  |@{\hspace{0.1cm}}c@{\hspace{0.1cm}}|@{\hspace{0.1cm}}c@{\hspace{0.1cm}}
+  |@{\hspace{0.1cm}}c@{\hspace{0.1cm}}|@{\hspace{0.1cm}}c@{\hspace{0.1cm}}
+  ||@{\hspace{0.1cm}}c@{\hspace{0.1cm}}|@{\hspace{0.1cm}}c@{\hspace{0.1cm}}
+  |@{\hspace{0.1cm}}c@{\hspace{0.1cm}}|@{\hspace{0.1cm}}c@{\hspace{0.1cm}}
+  ||@{\hspace{0.1cm}}c@{\hspace{0.1cm}}||@{\hspace{0.1cm}}c@{\hspace{0.1cm}}
+  |@{\hspace{0.1cm}}c@{\hspace{0.1cm}}|}
+\hline
+Intro & Verse & Pre-Chorus & Chorus & Re-intro & Verse & Pre-Chorus & Chorus &
+Bridge & Chrous & Outro \\
+\hline
+\end{tabular}}
+
+\begin{itemize}
+\item \textbf{Intro}: 前奏，不會太長，通常不會有歌詞，設定情緒為Verse做準備。
+\item \textbf{Verse}: 主歌，能量低，比較安靜，樂器比較少，旋律都不會記得，通常在這段主唱開始唱，每次歌詞不一樣。
+\item \textbf{Chorus}: 副歌，最重要的段落，與Verse有較大對比，能量高，比較大聲，樂器多，旋律好記，歌詞差不多。
+\item \textbf{Pre-Chorus}: 副歌之前的段落，能量慢慢提升，和聲和Verse不太一樣，有進一步發展的感覺。
+\item \textbf{Re-intro/Interlude}: 間奏，內容跟Intro很像的話叫Re-intro，否則叫Interlude。
+\item \textbf{\ruby{Bridge}{Middle Eight}}: 重複後沒有出現過的全新段落，通常剛好八小節。
+\item \textbf{Outro}: 尾奏，只有樂器沒有歌詞。
+\end{itemize}
+
+\medskip
+
+{\setlength{\parindent}{0cm}
+{\Large$\quarterNote$} {\small = 78}
+
+\textbf{Intro}: C 大調但沒有用 C 和弦，留到 Verse 開頭用，給 Verse 真正開頭的感覺。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f2 g e:m7 a:m7 d1:m7 d:m7/g | \break
+    g s \bar "" s \bar "" s \bar ""
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (0.67,0.3) {（五級和弦，未完成感）};
+\end{tikzpicture}
+
+\textbf{Verse 1}: 7 小節有驚喜的感覺。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    c1 e:7 a:m7 f:m | \break
+    e2:m7 a:m7 d1:m7 d2:m7/g g:7.9- s1 \bar ""
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (4.8,1.3) {（副屬和弦）};
+\node[anchor=south west,node font=\small] at (12.7,1.3) {（借用和弦）};
+\node[anchor=south west,node font=\small] at (7.9,-0.5) {（屬11和弦）};
+\node[anchor=south west,node font=\small] at (9.9,-0.5) {（帶變化音的屬和弦）};
+\end{tikzpicture}
+
+\textbf{Verse 1B}: Verse 1 反覆一次。加入更多樂器，爵士鼓節奏變複雜。這首曲子只有 Verse 是從 C 和弦開始，有一種「我從這裡開始說故事」的感覺。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    c1 e:7 a:m7 f:m | \break
+    e2:m7 a:m7 d2:m7 d:m7/g c1 bes2 ges:9.6-
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (10,-0.5) {（F大調的四級和弦）};
+\node[anchor=south west,node font=\small] at (12.9,-0.5) {（三全音替換/代理和弦）};
+\end{tikzpicture}
+
+\textbf{Pre-chorus 1}: 吉他的音變多，打小鼓的頻率變高，讓能量上升。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f1:maj7 f2/g e/f e:7 aes:dim a:m7 a:m7/g | \break
+    f1:maj7 d/fis g:sus4 e:7
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (1,1.5) {（新段落的感覺）};
+\node[anchor=south west,node font=\small] at (4.3,1.7) {（有五月天味道的特別和弦）};
+\node[anchor=south west,node font=\small] at (8.3,1.7) {（應該寫G$\sharp$dim，A小調的七級和弦）};
+\node[anchor=south west,node font=\small] at (3.8,-0.5) {（G大調的五級和弦，第一轉位）};
+\node[anchor=south west,node font=\small,align=left] at (9.5,-1) {（下一段開頭是F和弦，用E\super{7} 接過去滿特別）\\
+（「遇到困難但是堅強撐下去」的感覺？）};
+\end{tikzpicture}
+
+\textbf{Chorus 1}: 大約相同的八小節重複兩次。加入了弦樂團，聽起來很壯闊，音量也變大。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f1:maj7 g2:sus4 g4 g/f e2:m7 e:7/gis a:m7 a:m7/g | \break
+    d1:m7 e:m7 f2:maj7 d/fis g:sus4 e:7 | \break
+    f1:maj7 g/f e2:m7 e:7/gis a:m7 a:m7/g | \break
+    d1:m7 f:m6 f/g g:7.9-
+  }
+}
+\end{lilypond}
+};
+\draw[dashed,very thin] (9.8,1.2) rectangle (11,4.2);
+\node[anchor=south west,node font=\small] at (11.1,1.8) {（好多副屬和弦）};
+\node[anchor=south west,node font=\small] at (5,0.2) {（借用和弦）};
+\node[anchor=south west,node font=\small] at (8.8,0.2) {（屬11和弦）};
+\node[anchor=south west,node font=\small] at (12.6,2.9) {（遇到困難但是堅強的E\super{7}）};
+\end{tikzpicture}
+
+\textbf{Re-intro}: 四小節，鋼琴吉他主旋律。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f2:maj7 g/f e:m7 a:7.5+.9- d1:m7 d2:m7/g g:9.9-
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (5.3,0.67) {（A\super{7}上面放B$\flat$當主旋律）};
+\node[anchor=south west,node font=\small] at (7.9,-0.4) {（Dm\super{7}上面放E當主旋律）};
+\end{tikzpicture}
+
+（Verse - Pre-chorus - Chorus 的第二次循環）
+
+\textbf{Verse 2}
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    c1 e:7 a:m7 f:m | \break
+    e2:m7 a:m7 d2:m7 d:m7/g c1 bes2 ges:9.6-
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (10,-0.5) {（F大調的四級和弦）};
+\node[anchor=south west,node font=\small] at (12.9,-0.5) {（三全音替換/代理和弦）};
+\end{tikzpicture}
+
+\textbf{Pre-chorus 2}
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f1:maj7 f2/g e/f e:7 aes:dim a:m7 a:m7/g | \break
+    f1:maj7 d/fis g:sus4 e:7
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (4.3,1.7) {（有五月天味道的特別和弦）};
+\node[anchor=south west,node font=\small] at (10.5,-0.5) {（「遇到困難但是堅強撐下去」的感覺？）};
+\end{tikzpicture}
+
+\textbf{Chorus 2}
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f1:maj7 g2:sus4 g4 g/f e2:m7 e:7/gis a:m7 a:m7/g | \break
+    d1:m7 e:m7 f2:maj7 d/fis g:sus4 e:7 | \break
+    f1:maj7 g/f e2:m7 e:7/gis a:m7 g4:m7 g:m7/c | \break
+    d1:m7 f:m6 f/g e2:7 e:7/gis
+  }
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (12.6,2.9) {（遇到困難但是堅強的E\super{7}）};
+\node[anchor=south west,node font=\small] at (11.7,-0.45) {（這個E\super{7}後面真的是接Am）};
+\end{tikzpicture}
+
+\textbf{Bridge}: 沒有歌詞，主旋律是弦樂團；前四小節有同步的八分音符，有堅決感。只有這一段是從Am開始。
+
+\medskip
+
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    a1:m7 a:m7/g f:maj9 e:m7 | \break
+    d1:m7 e:m7 f:maj7 e:7
+  }
+}
+\end{lilypond}
+
+\textbf{Chorus 3}: 前六小節配器縮減到只剩主唱和鋼琴，讓你冷靜下來；第七小節所有樂器突然再出現，瞬間就很壯闊；第十七小節所有樂器消失，剩下主唱「自由了」，創造只留下一個人呆在原地的寂寞感，呼應歌詞的意境。
+
+\medskip
+
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    \set additionalPitchPrefix = #"add"
+    f1:maj7 g2:sus4 g4 g/f e2:m7 e:7/gis a:m7 a:m7/g | \break
+    d1:m7 e:m7 f2:maj7 d/fis g:sus4 e:7 | \break
+    f1:maj7 g/f e2:m7 e:7/gis a:m7 g4:m7 g:m7/c | \break
+    d1:m7 f:m6 f/g g:7.9- | \break
+    c:5.9 s \bar "" s \bar "" s \bar ""
+  }
+}
+\end{lilypond}
+
+\textbf{Outro}: 簡單重複開頭的鋼琴獨奏作為 Outro。
+
+\medskip
+
+\begin{tikzpicture}
+\node[text width=16cm,inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new ChordNames \with {
+    \override BarLine.bar-extent = #'(-2 . 2)
+    \consists "Bar_engraver"
+} {
+  \override ChordNames.ChordName.font-family = #'roman
+  \override ChordNames.ChordName.font-size = #0.85
+  \override ChordName.extra-spacing-width=#'(+inf.0 . -inf.0)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \chordmode {
+    f2 g e:m7 a:m7 d1:m7 d:m7/g | \break
+    g f:maj9 \bar "|." s \bar "" s \bar ""
+  }
+}
+\layout {
+  ragged-right = ##f
+}
+\end{lilypond}
+};
+\node[anchor=south west,node font=\small] at (3.8,-0.5) {（不要結束在C和弦才會淡淡哀傷）};
+\end{tikzpicture}
+
+}
+
 \section{如何彈出又帥氣又糾結的屬七和弦？}
 \section{上下「夾擊」目標音，讓你的旋律變得更有趣！}
 \section{如何使用「第一轉位」？（First Inversion）}
@@ -4022,7 +4385,7 @@ Swing（搖擺）是爵士音樂的預設演奏方式。十個秘訣：
 \section{全新的和弦配置思考法！}
 \section{隨機挑選和弦，亂接也可以！}
 \section{好和弦的第 100 集！}
-\section{100 集紀念，好和弦的 100 個「哈囉」開場白！}
+% \section{100 集紀念，好和弦的 100 個「哈囉」開場白！}
 \section{好和弦教你在任何和弦進行上面寫旋律！}
 \section{用很簡單的音，在複雜的和弦進行上面即興！}
 \section{為什麼超級瑪莉會聽起來像是超級瑪莉？（Super Mario Bros.）}
@@ -4818,6 +5181,132 @@ Dietrich Nikolaus Winkel發現鐘擺兩端有配重就可以擺動很慢，德�
 \item 手放開
 \item 彈下一個和弦，同時開始放踏板
 \end{enumerate}
+
+\section{厲害的人不告訴你的祕技：用鋼琴的右踏板控制共振！}
+
+共振：當物體發出的頻率在周遭的物體本身的泛音列裡的話，它們也會發出聲音。對鋼琴裡的弦發出聲音，它們就會跟你一起共振。你彈的每一個聲音，都可以震到鋼琴裡的每一條弦（如果沒被制音器壓住）。用右踏板踩下的時機，可以控制共振強度和內容。
+
+一個音最開頭的0.2\textasciitilde{}0.3秒有琴槌的撞擊雜音（叩叩聲），沒有明確音高，可以造成鋼琴幾乎每一條弦的共振，聽起來混濁、像地下道迴音。中音或低音可以等叩叩聲過了再踩踏板，讓聲音變乾淨；高音本身的聲音單薄，用叩叩聲的共振可以產生餘音繞樑的感覺。
+
+\section{20 個關於鋼琴踏板的小秘訣！}
+
+\begin{enumerate}
+\item 鋼琴的最高音區沒有制音器。但是不踩踏板其他的弦還是會共振。
+\item 永遠把右腳放在右踏板上。
+\item 永遠把左腳放在左踏板上。特別是在平台鋼琴上控制音色。
+\item 先把右踏板最上層的無用區域踩掉。把腳等在制音器啟動那個點。
+\item 右踏板很少會需要踩到「最底」。大部分鋼琴是在踩下\sfrac{1}{2}到\sfrac{2}{3}的地方。
+\item 這樣子想像右踏板。只有在中間兩個點之內能控制踏板程度大小。
+
+\begin{tikzpicture}
+\node[anchor=west,inner sep=0.3em,node font=\small]
+ (a) at (4.14,0) {頂端};
+\node[anchor=west,inner sep=0.3em,node font=\small]
+ (b) at (4.08,-0.48) {制音器啟動};
+\node[anchor=west,inner sep=0.3em,node font=\small]
+ (c) at (3.9,-1.3) {制音器完全離開弦};
+\node[anchor=west,inner sep=0.3em,node font=\small]
+ (d) at (3.57,-2.1) {底部};
+\fill[fill=red!20] (0,0) -- (4.08,-0.48) -- (3.9,-1.3) -- cycle;
+\draw[semithick] (0,0) -- (4.14,0);
+\draw[semithick] (0,0) -- (4.08,-0.48);
+\draw[semithick] (0,0) -- (3.9,-1.3);
+\draw[semithick] (0,0) -- (3.57,-2.1);
+\end{tikzpicture}
+
+\item 避免踏板快速放掉、制音器撞擊弦的雜音。
+\item 如果產生制音器雜音，不要馬上踩回踏板。
+\item 避免踏板快速踩下、踏板鐵柱造成的雜音。
+\item 避免踏板快速放掉、踏板本身打到木頭的雜音。
+\item 把分解和弦的前幾個音按住，來延後踩踏板的時機，多避開一兩個音的叩叩聲。
+\item 把碰恰伴奏的第一個音按長，來延後踩踏板的時機。
+
+\begin{tabular}{c c}
+\begin{tikzpicture}
+\node[inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \numericTimeSignature
+    f,8 c' f a c a f c
+  }
+}
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/24)
+  }
+}
+\end{lilypond}
+};
+\fill[fill=green!40,fill opacity=0.4] (1.5,0.01) rectangle (3.35,0.23);
+\fill[fill=green!40,fill opacity=0.4] (2,0.27) rectangle (3.35,0.49);
+\fill[fill=green!40,fill opacity=0.4] (2.5,0.51) rectangle (3.35,0.73);
+\draw[thick] (3.23,-0.1) -- (3.35,-0.6) -- (6.7,-0.6);
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (0.6,-0.08) {按住前幾個音……};
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (3.35,-0.65) {所以你可以晚一點點才踩踏板。};
+\end{tikzpicture} &
+\begin{tikzpicture}
+\node[inner sep=0pt,anchor=south west] at (0,0) {
+\begin{lilypond}[staffsize=16]
+\new Staff {
+  \relative c {
+    \clef "bass"
+    \numericTimeSignature
+    f,4 \repeat unfold 3 {<a' c f>4}
+  }
+}
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/128)
+  }
+}
+\end{lilypond}
+};
+\fill[fill=green!40,fill opacity=0.4] (1.5,0.01) rectangle (2.55,0.23);
+\draw[thick] (2.43,-0.1) -- (2.55,-0.6) -- (6.7,-0.6);
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (0.5,-0.08) {盡量按長……};
+\node[anchor=north west,inner xsep=0pt,inner ysep=0.2em,node font=\small]
+  at (2.55,-0.65) {所以你可以晚一點點才踩踏板。};
+\end{tikzpicture}
+\end{tabular}
+
+\item 踏板必須踩很久？那麼也許手彈輕一些來避免骯髒。
+\item 用右踏板放掉的速度，來控制尾音型態。
+\item 用很淺的右踏板，讓跳音ＱＱ的。
+\item 用右踏板，讓大聲的和弦變得更肥。
+\item 非常淺的踏板（5\% 以下），幾乎隨處可用。
+\item 但踏板只要有一點點太多，就會聽起來很髒。
+\item 彈巴哈不可用踏板？為什麼要模仿舊的樂器的缺點？
+\item 踏板沒有「簡單規則」。要真的去瞭解踏板的原理，以及深度、速度和時間差的影響。
+\end{enumerate}
+
+\section{數位鋼琴的踏板，跟真的鋼琴一樣嗎？}
+
+現代數位鋼琴和鋼琴軟體都在模仿踏板的反應。從真的鋼琴轉換到數位鋼琴上，不需要對踏板的用法做修改。要用數位鋼琴練習鋼琴，還是要選擇反應類似的，特別是雜音和共振控制。
+
+\medskip
+
+三個踏板都有嗎？
+
+\begin{itemize}
+\item 右邊（制音）踏板：當然有。
+\item 中間（持音）踏板：大多有。外接踏板把MIDI控制器編號調為66。
+\item 左邊（柔音）踏板：有些有。大部分實體數位鋼琴有，外接踏板把MIDI控制器編號調為67。有些電腦軟體使用真的取樣。
+\end{itemize}
+
+右踏板可不可以控制深度？要硬體軟體都有支援才行。可以試彈跳音來確定。
+
+數位鋼琴不一定支援「不是瞬間」的制音，有些有開關。測試：彈和弦並踩住踏板，然後放掉踏板再瞬間踩回；彈和弦，手放掉「之後0.1秒」踩踏板。
+
+很多軟體都可以設置踏板雜音。
+
+琴弦共振大多都模仿不像。測試：無聲地按住低音鍵，彈高音鍵；踩踏板先後的差異，和「叩叩聲」的影響；甚至可以踩住踏板對着琴大叫。
 
 \end{document}
 
