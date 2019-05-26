@@ -33,6 +33,7 @@
 \newcommand*{\episoderef}[1]{\hyperref[{#1}]{第 \ref*{#1} 集：\nameref*{#1}}}
 \newcommand*{\episodenumref}[1]{\super{\hyperref[{#1}]{(\ref*{#1})}}}
 \newcommand{\lpipe}{\rule[-0.4ex]{0.6pt}{2.3ex}}
+\def\super#1{\textsuperscript{#1}}
 \title{「好和弦」筆記}
 \date{}
 
@@ -1064,7 +1065,7 @@ C Blues Scale
 
 \section{什麼是「五聲音階」？}
 
-\ruby{五聲音階}{Pentatonic Scale}：五個音的音階。一般指\ruby{大調五聲音階}{Major Pentatonic Scale}。
+\ruby{五聲音階}{Pentatonic Scale}：五個音的音階。一般指\ruby{大調五聲音階}{Major Pentatonic Scale}。世界各地都有用到五聲音階。
 
 \begin{lilypond}[quote,staffsize=16]
 \new Staff {
@@ -1079,7 +1080,20 @@ C Blues Scale
 }
 \end{lilypond}
 
-「中國」五聲音階，有音名：宮商角徵羽。
+\begin{lilypond}[quote,staffsize=16]
+\new Staff {
+  \relative c' {
+    \clef "treble"
+    \cadenzaOn
+    \set Staff.instrumentName = #"C Minor Pentatonic Scale"
+    \override Staff.TimeSignature #'stencil = ##f
+    c1 ees f g bes c
+    \bar "|."
+  }
+}
+\end{lilypond}
+
+「中國」五聲音階，有音名：宮商角徵羽。把不同音放到開頭即可得到宮商角徵羽調式。
 
 \section{用五聲音階來即興！}
 
